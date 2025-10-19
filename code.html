@@ -6,7 +6,7 @@
   <title>Code Lab — Rithwik's Space</title>
   <meta name="description" content="Write and save your C code here.">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.0/ace.js" integrity="sha512-T6MZ2rZQ6EumHeJEM8V7s7Eogt2NITt8n6sih/cDjFjIKV69hKnZcADq3hVHe5t9tF2l4VPS0xpaE6RW9tK2ZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.0/ace.js"></script>
 </head>
 <body class="page page-in code-page">
 
@@ -32,6 +32,7 @@
           <button id="runBtn" class="btn small">Run</button>
           <button id="downloadBtn" class="btn small">Download</button>
           <button id="clearBtn" class="ghost small">Clear</button>
+          <button id="githubSaveBtn" class="btn small">Save to GitHub</button>
         </div>
 
         <pre id="output" class="muted" style="margin-top:12px;"></pre>
@@ -57,9 +58,7 @@
     let to;
     editor.session.on('change', () => {
       clearTimeout(to);
-      to = setTimeout(() => {
-        localStorage.setItem(storageKey, editor.getValue());
-      }, 700);
+      to = setTimeout(() => { localStorage.setItem(storageKey, editor.getValue()); }, 700);
     });
 
     document.getElementById("runBtn").addEventListener("click", () => {
@@ -79,6 +78,40 @@
       localStorage.removeItem(storageKey);
       document.getElementById("output").textContent = "";
     });
+
+    async function saveToGitHub() {
+      const token = prompt("Enter your GitHub Personal Access Token:");
+      if(!token) return alert("Token required!");
+
+      const owner = "YOUR_GITHUB_USERNAME"; 
+      const repo = "YOUR_REPO_NAME";         
+      const path = "program.c";              
+      const message = "Update C code from Code Lab";
+      const content = btoa(editor.getValue());
+
+      let sha = null;
+      try {
+        const resp = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+          headers: { Authorization: `token ${token}` }
+        });
+        if(resp.ok){ const data = await resp.json(); sha = data.sha; }
+      } catch(err){ console.error(err); }
+
+      try {
+        const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+          method: "PUT",
+          headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ message, content, sha })
+        });
+        if(res.ok) alert("Saved to GitHub! 🎉");
+        else {
+          const errData = await res.json();
+          alert("Failed to save: " + (errData.message || "unknown error"));
+        }
+      } catch(err){ console.error(err); alert("Error saving to GitHub."); }
+    }
+
+    document.getElementById("githubSaveBtn").addEventListener("click", saveToGitHub);
   </script>
 
 </body>
