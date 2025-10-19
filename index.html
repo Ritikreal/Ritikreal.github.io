@@ -1,40 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rithwik V Kumar | Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rithwik V Kumar — Portfolio</title>
+  <meta name="description" content="Rithwik V Kumar — minimal animated portfolio" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="container">
-    <header class="fade">
-      <img src="images/profile.jpg" alt="Rithwik V Kumar" class="profile-pic">
-      <h1>Rithwik V Kumar</h1>
-      <p class="subtitle">Student • Developer • Designer</p>
+<body class="page page-in">
+  <main class="stage">
+    <header class="topbar">
+      <div class="brand">
+        <div class="title">
+          <h1>Rithwik V Kumar</h1>
+          <p class="sub">Student · Developer · Designer</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="link" href="notes.html" data-transition="slide">Notes (video)</a>
+      </nav>
     </header>
 
-    <section class="fade about">
-      <h2>About Me</h2>
-      <p>
-        I’m a student at <strong>Dayananda Sagar Academy of Technology and Management</strong>, 
-        passionate about technology, design, and creating beautiful web experiences.  
-        I enjoy learning new tools and building things that make a difference.
-      </p>
-    </section>
+    <section class="hero">
+      <div class="hero-inner">
+        <h2 class="headline">Hello — I’m <span class="accent">Rithwik</span></h2>
+        <p class="lead">
+          I design minimal, usable front-end interfaces and love clean UI/UX.
+        </p>
 
-    <section class="fade links">
-      <h2>Connect with Me</h2>
-      <div class="socials">
-        <a href="https://www.instagram.com/_rithwikvkumar" target="_blank" class="btn">Instagram</a>
-        <a href="https://www.linkedin.com/in/rithwik-v-kumar-74aba4334/" target="_blank" class="btn">LinkedIn</a>
+        <div class="actions">
+          <a class="btn" href="notes.html" data-transition="slide">Open Notes</a>
+          <a class="ghost" href="https://instagram.com/_rithwikvkumar" target="_blank" rel="noopener">Instagram</a>
+          <a class="ghost" href="https://www.linkedin.com/in/rithwik-v-kumar-74aba4334/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
       </div>
     </section>
 
-    <footer class="fade">
-      <p>© 2025 Rithwik V Kumar</p>
+    <section class="info">
+      <div class="card">
+        <h3>About</h3>
+        <p>I study at Dayananda Sagar Academy of Technology and Management. I build small projects focused on clear design and smooth interactions.</p>
+      </div>
+
+      <div class="card">
+        <h3>Education</h3>
+        <p>Dayananda Sagar Academy of Technology and Management — [Your Course / Degree]</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© <span id="year"></span> Rithwik V Kumar</p>
     </footer>
-  </div>
+  </main>
 
   <script src="script.js"></script>
 </body>
