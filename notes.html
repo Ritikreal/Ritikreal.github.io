@@ -8,10 +8,9 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="page page-in notes-page">
-
   <div class="video-bg-wrap">
-    <video id="bgvid" autoplay muted loop playsinline preload="auto">
-      <source src="media/bg.mp4" type="video/mp4" />
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="assets/bg.mp4" type="video/mp4" />
     </video>
     <div class="video-overlay"></div>
   </div>
@@ -25,16 +24,13 @@
         </div>
       </div>
       <nav class="nav">
-        <a class="link" href="index.html" data-transition="slide-back">Home</a>
-        <a class="link" href="code.html" data-transition="slide">Code Lab</a>
+        <a class="link" href="index.html" data-transition="slide-back">Back</a>
       </nav>
     </header>
 
     <section class="notes-panel">
       <div class="notes-inner card">
-        <label for="notearea" class="sr-only">Your notes</label>
         <textarea id="notearea" placeholder="Type your notes here..."></textarea>
-
         <div class="note-actions">
           <button id="saveBtn" class="btn small">Save</button>
           <button id="clearBtn" class="ghost small">Clear</button>
@@ -47,7 +43,6 @@
       <p>Tip: your notes stay on this device — not uploaded anywhere.</p>
     </footer>
   </main>
-
   <script src="script.js"></script>
 </body>
 </html>
