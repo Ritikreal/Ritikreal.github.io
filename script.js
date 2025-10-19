@@ -46,6 +46,6 @@
     const cat = document.getElementById('pixel-cat');
     if(!cat) return;
     cat.addEventListener('mouseenter', ()=>{ cat.classList.add('bounce'); setTimeout(()=>cat.classList.remove('bounce'),600); });
-    cat.addEventListener('click', ()=>{ cat.classList.add('bounce'); setTimeout(()=>cat.classList.remove('bounce'),600); alert('Meow! 👋'); });
+    cat.addEventListener('click', ()=>{ cat.classList.add('bounce'); setTimeout(()=>cat.classList.remove('bounce'),600); alert('Hiii Prapthiii'); });
   }
 })();
