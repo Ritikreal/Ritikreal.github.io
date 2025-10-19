@@ -3,46 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rithwik's Portfolio</title>
+  <title>Rithwik V Kumar | Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <h1 class="logo">Rithwik <span>Portfolio</span></h1>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <button id="theme-toggle">🌙</button>
-    </nav>
-  </header>
+  <div class="container">
+    <header class="fade">
+      <img src="images/profile.jpg" alt="Rithwik V Kumar" class="profile-pic">
+      <h1>Rithwik V Kumar</h1>
+      <p class="subtitle">Student • Developer • Designer</p>
+    </header>
 
-  <section id="home" class="hero">
-    <div class="hero-content">
-      <h2>Hello, I’m <span>Rithwik V Kumar</span></h2>
-      <p>Creative Developer | UI/UX Enthusiast | Tech Explorer</p>
-      <a href="#gallery" class="btn">View My Gallery</a>
-    </div>
-  </section>
+    <section class="fade about">
+      <h2>About Me</h2>
+      <p>
+        I’m a student at <strong>Dayananda Sagar Academy of Technology and Management</strong>, 
+        passionate about technology, design, and creating beautiful web experiences.  
+        I enjoy learning new tools and building things that make a difference.
+      </p>
+    </section>
 
-  <section id="gallery" class="section">
-    <h2>My Gallery</h2>
-    <div class="gallery-grid" id="gallery-grid">
-      <!-- Images loaded dynamically from /images -->
-    </div>
-  </section>
+    <section class="fade links">
+      <h2>Connect with Me</h2>
+      <div class="socials">
+        <a href="https://www.instagram.com/_rithwikvkumar" target="_blank" class="btn">Instagram</a>
+        <a href="https://www.linkedin.com/in/rithwik-v-kumar-74aba4334/" target="_blank" class="btn">LinkedIn</a>
+      </div>
+    </section>
 
-  <section id="contact" class="section contact">
-    <h2>Contact Me</h2>
-    <p>Got a project or idea? Let’s connect!</p>
-    <a href="mailto:your@email.com" class="btn">Send Email</a>
-  </section>
-
-  <footer>
-    <p>© 2025 Rithwik V Kumar | Made with ❤️ using GitHub Pages</p>
-  </footer>
+    <footer class="fade">
+      <p>© 2025 Rithwik V Kumar</p>
+    </footer>
+  </div>
 
   <script src="script.js"></script>
 </body>
