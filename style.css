@@ -1,101 +1,20 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+// Fade-in animation on scroll
+const faders = document.querySelectorAll(".fade");
 
-body {
-  font-family: "Poppins", sans-serif;
-  background-color: #0e0e0e;
-  color: #eaeaea;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  text-align: center;
-}
+const appearOptions = {
+  threshold: 0.1,
+  rootMargin: "0px 0px -20px 0px"
+};
 
-.container {
-  max-width: 700px;
-  padding: 2rem;
-}
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("show");
+    observer.unobserve(entry.target);
+  });
+}, appearOptions);
 
-.profile-pic {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #6c63ff;
-  margin-bottom: 1rem;
-  transition: transform 0.3s;
-}
-
-.profile-pic:hover {
-  transform: scale(1.05);
-}
-
-h1 {
-  font-size: 2rem;
-  color: #ffffff;
-}
-
-.subtitle {
-  color: #999;
-  margin-bottom: 2rem;
-  font-size: 1rem;
-}
-
-section {
-  margin-top: 3rem;
-}
-
-h2 {
-  color: #6c63ff;
-  margin-bottom: 1rem;
-  font-size: 1.4rem;
-}
-
-p {
-  color: #ccc;
-  line-height: 1.6;
-}
-
-.socials {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.btn {
-  text-decoration: none;
-  background: #6c63ff;
-  color: white;
-  padding: 0.6rem 1.4rem;
-  border-radius: 6px;
-  font-weight: 500;
-  transition: background 0.3s;
-}
-
-.btn:hover {
-  background: #5548d8;
-}
-
-footer {
-  margin-top: 4rem;
-  color: #777;
-  font-size: 0.9rem;
-}
-
-/* Fade animation */
-.fade {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.fade.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+faders.forEach(fader => {
+  appearOnScroll.observe(fader);
+});
 
