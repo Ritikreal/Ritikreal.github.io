@@ -1,1 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Lab — Rithwik's Space</title>
+  <meta name="description" content="Write and save your C code here.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Ace Editor -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.0/ace.js" integrity="sha512-T6MZ2rZQ6EumHeJEM8V7s7Eogt2NITt8n6sih/cDjFjIKV69hKnZcADq3hVHe5t9tF2l4VPS0xpaE6RW9tK2ZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body class="page page-in code-page">
+
+  <main class="stage">
+    <header class="topbar">
+      <div class="brand">
+        <div class="title">
+          <h1>Code Lab</h1>
+          <p class="sub">Write C code — autosaves locally</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="link" href="index.html" data-transition="slide-back">Home</a>
+        <a class="link" href="notes.html" data-transition="slide">Notes</a>
+      </nav>
+    </header>
+
+    <section class="notes-panel">
+      <div class="notes-inner card">
+        <div id="editor" style="height:400px;width:100%;border-radius:12px;overflow:hidden;"></div>
+
+        <div class="note-actions" style="margin-top:12px;">
+          <button id="runBtn" class="btn small">Run</button>
+          <button id="downloadBtn" class="btn small">Download</button>
+          <button id="clearBtn" class="ghost small">Clear</button>
+        </div>
+
+        <pre id="output" class="muted" style="margin-top:12px;"></pre>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© <span id="year"></span> Rithwik V Kumar</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    // Initialize Ace Editor
+    const editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/c");
+    editor.setOptions({ fontSize: "14px", showPrintMargin: false });
+    const storageKey = "rithwik-code-v1";
+
+    // Load saved code
+    const saved = localStorage.getItem(storageKey);
+    if(saved) editor.setValue(saved, -1); // -1 moves cursor to start
+
+    // Autosave
+    let to;
+    editor.session.on('change', () => {
+      clearTimeout(to);
+      to = setTimeout(() => {
+        localStorage.setItem(storageKey, editor.getValue());
+      }, 700);
+    });
+
+    // Buttons
+    document.getElementById("runBtn").addEventListener("click", () => {
+      document.getElementById("output").textContent = "⚠️ In-browser compile not supported. Code saved locally!";
+    });
+
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      const blob = new Blob([editor.getValue()], { type: "text/plain" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "program.c";
+      a.click();
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      editor.setValue("");
+      localStorage.removeItem(storageKey);
+      document.getElementById("output").textContent = "";
+    });
+  </script>
+
+</body>
+</html>
 
