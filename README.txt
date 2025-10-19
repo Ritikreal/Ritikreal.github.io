@@ -1,0 +1,1 @@
+Place your bg video at media/bg.mp4 and optional audio at media/bg.mp3. Upload all files to your GitHub Pages repo (Ritikreal.github.io).

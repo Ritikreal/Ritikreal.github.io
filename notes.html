@@ -1,244 +1,49 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Notes — Rithwik’s Space</title>
-  <meta name="description" content="Write and save your personal notes — Rithwik’s Space." />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body.notes-page {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: linear-gradient(120deg, #0b0c0f, #11131a);
-      color: #e6e9ef;
-      overflow: hidden;
-      position: relative;
-      font-family: "Poppins", sans-serif;
-    }
-
-    /* Background video */
-    .video-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .video-bg video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.25;
-    }
-
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
-    }
-
-    header {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255,255,255,0.03);
-      backdrop-filter: blur(6px);
-      z-index: 3;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 1rem;
-      color: #e6e9ef;
-      letter-spacing: 0.5px;
-    }
-
-    header .header-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    header a, .audio-btn {
-      text-decoration: none;
-      color: #9aa0a6;
-      background: rgba(255,255,255,0.05);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    header a:hover, .audio-btn:hover {
-      color: #fff;
-      background: rgba(255,255,255,0.1);
-    }
-
-    .notes-box {
-      z-index: 2;
-      width: 90%;
-      max-width: 900px;
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(8px);
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 20px;
-      margin: 100px auto 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      animation: fadeIn 1s ease;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 300px;
-      resize: vertical;
-      background: transparent;
-      color: #e6e9ef;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      font-family: inherit;
-      line-height: 1.6;
-    }
-
-    .note-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 12px;
-      align-items: center;
-    }
-
-    .btn {
-      background: #6c63ff;
-      color: #fff;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.2s;
-    }
-
-    .btn:hover { background: #7a71ff; }
-
-    .ghost {
-      background: transparent;
-      color: #e6e9ef;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    footer {
-      text-align: center;
-      padding: 14px;
-      font-size: 0.85rem;
-      color: #9aa0a6;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Notes — Rithwik’s Space</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
 </head>
-
-<body class="notes-page">
-  <!-- Background video -->
+<body class="page page-in notes-page">
   <div class="video-bg">
-    <video autoplay muted loop playsinline preload="auto" id="bgVideo">
+    <video id="bgVideo" autoplay muted loop playsinline preload="auto">
       <source src="media/bg.mp4" type="video/mp4" />
     </video>
     <div class="overlay"></div>
   </div>
 
-  <!-- Background music -->
   <audio id="bgAudio" loop>
     <source src="media/bg.mp3" type="audio/mpeg" />
   </audio>
 
-  <header>
-    <h1>Notes — Rithwik’s Space</h1>
-    <div class="header-actions">
-      <button class="audio-btn" id="toggleAudio">🔇 Audio Off</button>
-      <a href="index.html">Back</a>
+  <header class="topbar header-inner">
+    <div class="brand">
+      <div class="title"><h1>Notes</h1><p class="sub">Quick notes — saved locally</p></div>
     </div>
+    <nav class="nav">
+      <button id="toggleAudio" class="ghost small">🔇 Audio Off</button>
+      <a class="link" href="index.html" data-transition="slide-back">Home</a>
+      <a class="link" href="compiler.html" data-transition="slide">Code Lab</a>
+    </nav>
   </header>
 
-  <main>
-    <div class="notes-box">
-      <textarea id="noteArea" placeholder="Write your thoughts, ideas, or plans..."></textarea>
-      <div class="note-actions">
-        <button class="btn" id="saveNote">Save</button>
-        <button class="ghost" id="clearNote">Clear</button>
-        <span id="status" class="muted"></span>
+  <main class="stage notes-stage">
+    <section class="notes-panel">
+      <div class="notes-inner card">
+        <textarea id="notearea" placeholder="Type your notes here..."></textarea>
+        <div class="note-actions">
+          <button id="saveBtn" class="btn small">Save</button>
+          <button id="clearBtn" class="ghost small">Clear</button>
+          <span class="muted">Saved in your browser (local)</span>
+        </div>
       </div>
-    </div>
+    </section>
+    <footer class="footer"><p>Tip: your notes stay on this device — not uploaded anywhere.</p></footer>
   </main>
 
-  <footer>
-    Notes are saved locally — they never leave your browser.
-  </footer>
-
-  <script>
-    const noteKey = 'rithwik-notes-v2';
-    const area = document.getElementById('noteArea');
-    const saveBtn = document.getElementById('saveNote');
-    const clearBtn = document.getElementById('clearNote');
-    const status = document.getElementById('status');
-    const audio = document.getElementById('bgAudio');
-    const toggleAudio = document.getElementById('toggleAudio');
-
-    // Load saved note
-    area.value = localStorage.getItem(noteKey) || '';
-
-    // Manual save
-    saveBtn.onclick = () => {
-      localStorage.setItem(noteKey, area.value);
-      showStatus('Saved ✓');
-    };
-
-    // Clear
-    clearBtn.onclick = () => {
-      area.value = '';
-      localStorage.removeItem(noteKey);
-      showStatus('Cleared ✗');
-    };
-
-    // Auto-save
-    let timer;
-    area.addEventListener('input', () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        localStorage.setItem(noteKey, area.value);
-        showStatus('Auto-saved ✓');
-      }, 1000);
-    });
-
-    function showStatus(text) {
-      status.textContent = text;
-      setTimeout(() => (status.textContent = ''), 1500);
-    }
-
-    // Audio toggle
-    let playing = false;
-    toggleAudio.onclick = () => {
-      playing = !playing;
-      if (playing) {
-        audio.play();
-        toggleAudio.textContent = '🔊 Audio On';
-      } else {
-        audio.pause();
-        toggleAudio.textContent = '🔇 Audio Off';
-      }
-    };
-  </script>
+<script src="script.js"></script>
 </body>
 </html>
