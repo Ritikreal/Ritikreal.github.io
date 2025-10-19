@@ -6,7 +6,7 @@ A concise, high-level overview of the project.
 
 Project Title is a powerful and versatile tool/library/application designed to solve 
 
-$$Specific Problem$$
+Specific Problem$$
 
  by providing 
 
@@ -92,11 +92,11 @@ Distributed under the MIT License. See LICENSE for more information.
 
 📬 Contact
 
-$$Your Ritik
+Ritik
 
  - 
 
 
 
 
-Project Link: https://github.com/yourusername/yourproject
+Project Link: https://ritikreal.github.io
