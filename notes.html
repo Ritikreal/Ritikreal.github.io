@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Notes — Rithwik</title>
+  <meta name="description" content="Notes and video background." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page page-in notes-page">
+  <!-- Video background (replace media/bg.mp4 with your file) -->
+  <div class="video-bg-wrap">
+    <video id="bgvid" autoplay muted loop playsinline preload="auto">
+      <source src="media/bg.mp4" type="video/mp4" />
+      <!-- Fallback: text background gradient will show if video missing -->
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <main class="stage notes-stage">
+    <header class="topbar">
+      <div class="brand">
+        <div class="title">
+          <h1>Notes</h1>
+          <p class="sub">Quick notes — saved locally</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="link" href="index.html" data-transition="slide-back">Back</a>
+      </nav>
+    </header>
+
+    <section class="notes-panel">
+      <div class="notes-inner card">
+        <label for="notearea" class="sr-only">Your notes</label>
+        <textarea id="notearea" placeholder="Type your notes here..."></textarea>
+
+        <div class="note-actions">
+          <button id="saveBtn" class="btn small">Save</button>
+          <button id="clearBtn" class="ghost small">Clear</button>
+          <span class="muted">Saved in your browser (local)</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Tip: your notes stay on this device — not uploaded anywhere.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
