@@ -6,7 +6,6 @@
   <title>Code Lab — Rithwik's Space</title>
   <meta name="description" content="Write and save your C code here.">
   <link rel="stylesheet" href="style.css">
-  <!-- Ace Editor -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.0/ace.js" integrity="sha512-T6MZ2rZQ6EumHeJEM8V7s7Eogt2NITt8n6sih/cDjFjIKV69hKnZcADq3hVHe5t9tF2l4VPS0xpaE6RW9tK2ZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body class="page page-in code-page">
@@ -46,18 +45,15 @@
 
   <script src="script.js"></script>
   <script>
-    // Initialize Ace Editor
     const editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.session.setMode("ace/mode/c");
     editor.setOptions({ fontSize: "14px", showPrintMargin: false });
+
     const storageKey = "rithwik-code-v1";
-
-    // Load saved code
     const saved = localStorage.getItem(storageKey);
-    if(saved) editor.setValue(saved, -1); // -1 moves cursor to start
+    if(saved) editor.setValue(saved, -1);
 
-    // Autosave
     let to;
     editor.session.on('change', () => {
       clearTimeout(to);
@@ -66,7 +62,6 @@
       }, 700);
     });
 
-    // Buttons
     document.getElementById("runBtn").addEventListener("click", () => {
       document.getElementById("output").textContent = "⚠️ In-browser compile not supported. Code saved locally!";
     });
@@ -88,4 +83,3 @@
 
 </body>
 </html>
-
