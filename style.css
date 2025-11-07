@@ -1,175 +1,53 @@
-/* AMOLED terminal portfolio — scrollable + clean version */
-:root {
-  --bg: #000000;
-  --panel: rgba(255,255,255,0.02);
-  --glass: rgba(255,255,255,0.03);
-  --text: #e6f9ef;
-  --muted: #7f9891;
-  --accent: #00ff9f;
-  --accent-2: #00d1ff;
-  --mono: "ui-monospace", SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
-  --radius: 14px;
-  --card-pad: 18px;
-  --glass-border: rgba(255,255,255,0.04);
-}
+.hidden { display: none; }
 
-/* Reset + base */
-* {
-  box-sizing: border-box;
-}
-html, body {
-  height: 100%;
-  scroll-behavior: smooth;
-}
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
-  overflow-y: auto;
-}
-
-/* App layout */
-.app {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 24px;
-}
-
-/* Sidebar */
-.sidebar {
-  background: linear-gradient(180deg, rgba(255,255,255,0.006), rgba(255,255,255,0.004));
-  border-radius: var(--radius);
-  padding: 14px;
-  border: 1px solid var(--glass-border);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 14px 40px rgba(0,0,0,0.6);
-}
-
-.topbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.dots {
-  display: flex;
-  gap: 6px;
-}
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-.d1 { background: #ff5f57; }
-.d2 { background: #febc2e; }
-.d3 { background: #28c840; }
-
-.brand .mono {
-  font-family: var(--mono);
-  font-weight: 600;
-  color: var(--accent);
-  font-size: 13px;
-}
-.muted { color: var(--muted); }
-.small { font-size: 12px; }
-
-/* Terminal window */
-.terminal {
-  background: transparent;
-  border-radius: 10px;
-  padding: 10px;
-  height: auto;
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--text);
-  border: 1px solid rgba(255,255,255,0.03);
-  scrollbar-width: thin;
-  overflow-y: auto;
-  max-height: 70vh;
-}
-.terminal .welcome { margin-bottom: 8px; }
-.inline { display: inline-block; }
-.cmd { color: var(--accent); font-family: var(--mono); font-weight: 600; }
-.output p { margin: 6px 0; }
-.promptForm { display: flex; flex-direction: column; gap: 8px; }
-.promptBar {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  padding: 6px;
-  border-radius: 10px;
-}
-.promptIcon { color: var(--accent); font-family: var(--mono); padding-left: 6px; }
-.cmdInput {
-  flex: 1;
-  background: transparent;
-  border: 0;
-  outline: none;
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 14px;
-  padding: 6px;
-}
-
-/* Content area */
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  overflow: visible;
-}
-.card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.006), rgba(255,255,255,0.004));
-  border-radius: var(--radius);
-  padding: var(--card-pad);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 18px 50px rgba(0,0,0,0.6);
-}
-
-/* Hero section */
-.hero {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  justify-content: space-between;
-}
-.hero .avatar {
-  width: 84px;
-  height: 84px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--mono);
-  font-size: 28px;
-  font-weight: 700;
-  color: #001414;
+  flex-direction: column;
+  color: #00ff9f;
+  font-family: "Roboto Mono", monospace;
+  z-index: 9999;
+  animation: fadeInBoot 1s ease forwards;
 }
 
-/* Footer removed */
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
+.boot-title {
+  font-size: 2rem;
+  letter-spacing: 2px;
+  margin: 0;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .app { padding: 12px; gap: 12px; }
-  .terminal { max-height: 50vh; }
+.boot-sub {
+  color: #00ffaa;
+  opacity: 0.8;
+  font-size: 0.9rem;
 }
 
-/* Focus */
-*:focus {
-  outline: 2px dashed rgba(0,255,159,0.12);
-  outline-offset: 4px;
+.blink {
+  animation: blink 1s infinite;
+}
+
+.fade-out {
+  animation: fadeOutBoot 2s ease forwards;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes fadeInBoot {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeOutBoot {
+  to { opacity: 0; }
+}
+
+/* Make page scrollable */
+body {
+  overflow-y: auto !important;
 }
