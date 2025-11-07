@@ -6,10 +6,17 @@
   <title>Rithwik — Terminal Portfolio</title>
   <meta name="description" content="AMOLED terminal-inspired portfolio — hybrid UI (terminal + panels). Commands: help, about, projects, resume, notes, tools, contact, open <page>, clear." />
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Make right-side scrollable */
+    .content {
+      overflow-y: auto;
+      max-height: 100vh;
+      scrollbar-width: thin;
+    }
+  </style>
 </head>
 <body>
   <div id="app" class="app" role="application" aria-label="Terminal portfolio app">
-    
     <!-- LEFT: Terminal -->
     <aside class="sidebar" aria-label="Terminal sidebar">
       <div class="topbar">
@@ -22,28 +29,27 @@
         </div>
       </div>
 
-      <div id="terminal" class="terminal" tabindex="0" aria-live="polite">
+      <div id="terminal" class="terminal" tabindex="0" aria-live="polite" aria-atomic="false">
         <div class="welcome">
           <div class="muted">Welcome — type <span class="cmd inline">help</span> to see commands.</div>
-          <div class="muted small">Tip: Try <span class="cmd inline">open projects</span> or click a chip below.</div>
+          <div class="muted small">Tip: Try <span class="cmd inline">open projects</span> or click chips below.</div>
         </div>
-        <div id="output" class="output"></div>
+        <div id="output" class="output" aria-hidden="false"></div>
       </div>
 
-      <form id="promptForm" class="promptForm" role="search">
+      <form id="promptForm" class="promptForm" role="search" aria-label="Command input">
         <div class="promptBar">
           <div class="promptIcon">➜</div>
-          <input id="cmdInput" class="cmdInput" autocomplete="off" spellcheck="false" placeholder="Enter command..." />
-          <button id="runBtn" class="btn">Run</button>
+          <input id="cmdInput" class="cmdInput" autocomplete="off" spellcheck="false" aria-label="Type a command" />
+          <button id="runBtn" class="btn" aria-label="Run">Run</button>
         </div>
       </form>
 
-      <div class="chips">
+      <div class="chips" aria-hidden="false">
         <button class="chip" data-cmd="help">help</button>
         <button class="chip" data-cmd="about">about</button>
         <button class="chip" data-cmd="projects">projects</button>
         <button class="chip" data-cmd="resume">resume</button>
-        <button class="chip" data-cmd="notes">notes</button>
         <button class="chip" data-cmd="tools">tools</button>
         <button class="chip" data-cmd="contact">contact</button>
         <button class="chip" data-cmd="clear">clear</button>
@@ -51,105 +57,81 @@
     </aside>
 
     <!-- RIGHT: Panels -->
-    <main class="content" id="content">
-      
+    <main class="content" id="content" aria-live="polite">
       <!-- HERO -->
-      <section id="panel-hero" class="card hero active" tabindex="0">
-        <div class="left"><div class="avatar">RV</div></div>
+      <section id="panel-hero" class="card hero active" data-panel="hero" tabindex="0">
+        <div class="left">
+          <div class="avatar">RV</div>
+        </div>
         <div class="center">
           <h1>Rithwik V Kumar</h1>
-          <p class="muted">Electronics Engineer • Embedded Systems • Open-source Tinkerer</p>
+          <p class="muted">Electronics Engineer • Toolmaker • Open-source tinkerer</p>
           <div class="meta">
-            <span class="tag">Arch Linux Enthusiast</span>
-            <span class="tag">IoT / Embedded</span>
-            <span class="tag">Hardware & Code</span>
+            <span class="tag">Arch-friendly</span>
+            <span class="tag">Web / Embedded</span>
+            <span class="tag">Open Source</span>
           </div>
-        </div>
-        <div class="right">
-          <button class="btn ghost" id="downloadResume">Download Resume</button>
         </div>
       </section>
 
-      <!-- PANEL AREA -->
-      <section id="panel-area" class="card panel-area">
-        
-        <!-- About -->
-        <div class="panel" id="about" hidden>
+      <!-- DYNAMIC CONTENT AREA -->
+      <section id="panel-area" class="card panel-area" tabindex="0">
+        <div class="panel" id="about" data-panel="about" hidden>
           <h2>About</h2>
-          <p>
-            Hey! I'm Rithwik — an Electronics Engineer who loves designing efficient embedded systems, coding hybrid tools, 
-            and experimenting with open hardware. I prefer minimal design, practical engineering, and a clean workflow.
-          </p>
+          <p>Hello! I'm Rithwik — an Electronics Engineer passionate about tools, embedded systems, and high-efficiency design. I enjoy creating simple yet powerful interfaces and integrating software with hardware systems.</p>
+          
           <h3>Focus</h3>
           <ul>
-            <li>Embedded Systems & IoT</li>
-            <li>Web Tools & Automation</li>
-            <li>Minimal UX/UI Engineering</li>
+            <li>Frontend development (HTML, CSS, JS)</li>
+            <li>Embedded systems & IoT (ESP32, LoRa, sensors)</li>
+            <li>Automation & developer tooling</li>
           </ul>
+
           <h3>Hobbies</h3>
-          <p class="muted">Jumping Linux distros · Petrol head 🏎️</p>
+          <p class="muted">Jumping distros, petrolhead, and tinkering with electronics.</p>
+
+          <h3>Education</h3>
+          <p>Currently pursuing my degree at <strong>Dayananda Sagar Academy of Technology and Management (DSATM)</strong>.</p>
         </div>
 
-        <!-- Projects -->
-        <div class="panel" id="projects" hidden>
+        <div class="panel" id="projects" data-panel="projects" hidden>
           <h2>Projects</h2>
           <div class="projectsGrid">
             <article class="project">
-              <h3>Soil Health Sensor <span class="status">(In Progress)</span></h3>
-              <p>
-                An IoT-based soil monitoring system using ESP32, VH400 moisture sensors, and LoRa modules 
-                for real-time soil health analysis. Designed for smart agriculture with accurate environmental sensing.
-              </p>
-              <ul>
-                <li>🧠 Tech: ESP32, VH400, LoRa, Web Dashboard</li>
-                <li>⚙️ Status: In Progress</li>
-              </ul>
+              <h4>Soil Health Sensor</h4>
+              <p>Compact LoRaWAN-enabled soil sensor that monitors soil moisture, temperature, and pH in real-time. Built for precision agriculture applications. <strong>Currently in progress.</strong></p>
+              <div class="tags"><span class="tag">ESP32</span><span class="tag">LoRa</span><span class="tag">IoT</span></div>
             </article>
           </div>
         </div>
 
-        <!-- Resume -->
-        <div class="panel" id="resume" hidden>
+        <div class="panel" id="resume" data-panel="resume" hidden>
           <h2>Resume</h2>
           <p class="muted">Summary</p>
           <ul>
-            <li>Electronics Engineer focused on Embedded + IoT systems</li>
-            <li>Open-source contributor & hardware tinkerer</li>
-            <li>Experienced with Linux and low-level microcontrollers</li>
+            <li>Strong foundation in embedded hardware and firmware development</li>
+            <li>Experience building user interfaces and hybrid UIs</li>
+            <li>Open-source contributor and electronics enthusiast</li>
           </ul>
         </div>
 
-        <!-- Notes -->
-        <div class="panel" id="notes" hidden>
-          <h2>Notes</h2>
-          <p>
-            Use <code>open notes</code> to view your notes page, or browse directly to 
-            <a href="notes.html" target="_blank" class="link">notes.html</a> if added.
-          </p>
-        </div>
-
-        <!-- Tools -->
-        <div class="panel" id="tools" hidden>
+        <div class="panel" id="tools" data-panel="tools" hidden>
           <h2>Tools & Tech</h2>
+          <p class="muted">Techstack I frequently use</p>
           <div class="techGrid">
-            <div class="tech">ESP32</div>
-            <div class="tech">LoRa</div>
-            <div class="tech">Node.js</div>
-            <div class="tech">Git</div>
-            <div class="tech">Docker</div>
-            <div class="tech">Vim</div>
+            <div class="tech">Node.js</div><div class="tech">Git</div><div class="tech">Docker</div>
+            <div class="tech">ESP32</div><div class="tech">LoRa</div><div class="tech">Arch Linux</div>
           </div>
         </div>
 
-        <!-- Contact -->
-        <div class="panel" id="contact" hidden>
+        <div class="panel" id="contact" data-panel="contact" hidden>
           <h2>Contact</h2>
-          <p class="muted">Mail</p>
+          <p class="muted">Email</p>
           <p><a class="link" href="mailto:rithprakum@gmail.com">rithprakum@gmail.com</a></p>
           <p class="muted">Socials</p>
           <p>
-            <a class="link" href="https://www.linkedin.com/in/rithwik-v-kumar-74aba4334" target="_blank">LinkedIn</a> · 
-            <a class="link" href="https://open.spotify.com/user/r3gqfowv3mch550g1kyzln2ii" target="_blank">Spotify</a>
+            <a class="link" href="https://www.linkedin.com/in/rithwik-v-kumar-74aba4334" target="_blank" rel="noopener">LinkedIn</a> ·
+            <a class="link" href="https://open.spotify.com/user/r3gqfowv3mch550g1kyzln2ii" target="_blank" rel="noopener">Spotify</a>
           </p>
         </div>
       </section>
