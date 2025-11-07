@@ -3,14 +3,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const output = document.getElementById("output");
   const form = document.getElementById("promptForm");
   const panels = document.querySelectorAll(".panel");
-  const chips = document.querySelectorAll(".chip");
 
   const commands = {
-    help: () => printOutput("Commands: help, about, projects, resume, notes, tools, contact, clear, exit"),
+    help: () => printOutput("Commands: help, about, projects, resume, tools, contact, clear, exit"),
     about: () => showPanel("about"),
     projects: () => showPanel("projects"),
     resume: () => showPanel("resume"),
-    notes: () => showPanel("notes"),
     tools: () => showPanel("tools"),
     contact: () => showPanel("contact"),
     clear: () => (output.innerHTML = ""),
@@ -33,13 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cmdInput.value = "";
   });
 
-  chips.forEach(chip => {
-    chip.addEventListener("click", () => {
-      cmdInput.value = chip.dataset.cmd;
-      form.dispatchEvent(new Event("submit"));
-    });
-  });
-
   function printOutput(html) {
     output.innerHTML += `<div>${html}</div>`;
     output.scrollTop = output.scrollHeight;
@@ -56,8 +47,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // EXIT Command logic (placeholder)
+  // Exit Command
   function exitCommand() {
-    printOutput("<span class='muted'>Exiting system...</span>");
+    printOutput("<span class='muted'>System shutting down...</span>");
+    const overlay = document.createElement("div");
+    overlay.style.cssText = `
+      position:fixed; inset:0; background:black; z-index:9999;
+      display:flex; align-items:center; justify-content:center;
+      font-family:monospace; font-size:32px; color:#00ff9f;
+    `;
+    document.body.appendChild(overlay);
+
+    let countdown = 5;
+    const interval = setInterval(() => {
+      overlay.textContent = `Shutting down in ${countdown--}...`;
+      if (countdown < 0) {
+        clearInterval(interval);
+        // Flash phase
+        let flashes = 0;
+        const flashInt = setInterval(() => {
+          overlay.style.background = `hsl(${Math.random() * 360},100%,50%)`;
+          flashes++;
+          if (flashes > 30) {
+            clearInterval(flashInt);
+            overlay.style.background = "black";
+            overlay.textContent = "Goodbye.";
+          }
+        }, 100);
+      }
+    }, 1000);
   }
 });
