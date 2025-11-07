@@ -6,7 +6,8 @@
 
 (() => {
   // Elements (match ids/classes in your HTML)
-  const outputEl = document.getElementById('output');
+  const outputEl = document.getElementById('output'); 
+ 
   const cmdInput = document.getElementById('cmdInput');
   const promptForm = document.getElementById('promptForm');
   const runBtn = document.getElementById('runBtn');
