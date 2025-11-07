@@ -1,47 +1,42 @@
-/* script.js
- Robust terminal + GUI logic for the provided index.html
- Commands supported:
-   help, about, projects, resume, notes, tools, contact, clear, open <page>
-*/
+window.addEventListener("DOMContentLoaded", () => {
+  const outputEl = document.getElementById("output");
+  const cmdInput = document.getElementById("cmdInput");
+  const promptForm = document.getElementById("promptForm");
+  const runBtn = document.getElementById("runBtn");
+  const chipEls = [...document.querySelectorAll(".chip")];
+  const panels = [...document.querySelectorAll(".panel")];
+  const hero = document.getElementById("panel-hero");
 
-(() => {
-  // Elements (match ids/classes in your HTML)
-  const outputEl = document.getElementById('output'); 
- 
-  const cmdInput = document.getElementById('cmdInput');
-  const promptForm = document.getElementById('promptForm');
-  const runBtn = document.getElementById('runBtn');
-  const chipEls = Array.from(document.querySelectorAll('.chip'));
-  const panels = Array.from(document.querySelectorAll('.panel'));
-  const hero = document.getElementById('panel-hero');
-
-  // map command -> panel id (null means hero)
   const panelMap = {
-    about: 'about',
-    projects: 'projects',
-    resume: 'resume',
-    notes: 'notes',
-    tools: 'tools',
-    contact: 'contact',
-    hero: null
+    about: "about",
+    projects: "projects",
+    resume: "resume",
+    notes: "notes",
+    tools: "tools",
+    contact: "contact",
+    hero: null,
   };
 
-  // small helper: append line
-  function appendLine(text = '', cls = '') {
-    const p = document.createElement('p');
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+    );
+  }
+
+  function appendLine(text = "", cls = "") {
+    const p = document.createElement("p");
     if (cls) p.className = cls;
     p.textContent = text;
     outputEl.appendChild(p);
     outputEl.scrollTop = outputEl.scrollHeight;
   }
 
-  // typing effect (returns Promise)
-  function typeLine(text, speed = 14, cls = '') {
-    return new Promise(resolve => {
-      const p = document.createElement('p');
-      if (cls) p.className = cls;
-      outputEl.appendChild(p);
-      let i = 0;
+  async function typeLine(text, speed = 10, cls = "") {
+    const p = document.createElement("p");
+    if (cls) p.className = cls;
+    outputEl.appendChild(p);
+    let i = 0;
+    return new Promise((resolve) => {
       function tick() {
         p.textContent = text.slice(0, i++);
         outputEl.scrollTop = outputEl.scrollHeight;
@@ -52,181 +47,105 @@
     });
   }
 
-  // commands content
   const responses = {
     help: `Available commands:
-  help           - show this help
-  about          - about me
-  projects       - list projects
-  resume         - summary / download
-  notes          - open notes page
-  tools          - tech & tools
-  contact        - contact info
-  open <page>    - open notes.html or other file
-  clear          - clear terminal`,
-    about: `Hi, I'm Rithwik — creator of tools and neat UI. I like minimal UX, embedded systems, and fast tooling.`,
-    projects: `Projects:
- - Terminal Portfolio (this site)
- - Soil Health Sensor (ESP32 + LoRa)
- - Compiler Playground`,
-    resume: `Resume: add resume.pdf to repo root to enable download button.`,
-    notes: `Notes: create notes.html in repo to open it with 'open notes'`,
-    tools: `Tools: Node, Git, Docker, ESP32, LoRa, Vim, Arch`,
-    contact: `Email: your.email@example.com
-GitHub: https://github.com/yourusername`
+  help — list commands
+  about — about me
+  projects — list projects
+  resume — show resume
+  notes — show notes
+  tools — show tech
+  contact — contact info
+  clear — clear terminal
+  open <page> — open page like notes.html`,
   };
 
-  // Show a panel (id or 'hero')
   function hideAllPanels() {
-    panels.forEach(p => p.hidden = true);
-    if (hero) hero.classList.remove('active');
+    panels.forEach((p) => (p.hidden = true));
+    hero?.classList.remove("active");
   }
 
   function showPanel(id) {
     hideAllPanels();
-    if (!id || id === 'hero') {
-      if (hero) {
-        hero.classList.add('active');
-        hero.scrollIntoView({ behavior: 'smooth' });
-      }
+    if (!id || id === "hero") {
+      hero?.classList.add("active");
       return;
     }
     const target = document.getElementById(id);
-    if (!target) {
-      appendLine(`Panel not found: ${id}`, 'muted');
-      return;
-    }
-    target.hidden = false;
-    setTimeout(() => target.focus && target.focus(), 200);
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (target) target.hidden = false;
   }
 
-  // Execute command string
-  async function execute(raw) {
-    const cmdRaw = (raw || '').trim();
-    if (!cmdRaw) return;
-    // echo the typed command
-    const echo = document.createElement('p');
-    echo.innerHTML = `<span class="cmd inline">➜</span> <span class="mono">${escapeHtml(cmdRaw)}</span>`;
+  async function execute(cmdRaw) {
+    const raw = (cmdRaw || "").trim();
+    if (!raw) return;
+    const echo = document.createElement("p");
+    echo.innerHTML = `<span class="cmd inline">➜</span> <span class="mono">${escapeHtml(
+      raw
+    )}</span>`;
     outputEl.appendChild(echo);
-    outputEl.scrollTop = outputEl.scrollHeight;
 
-    // parse
-    const parts = cmdRaw.split(/\s+/);
-    const cmd = parts[0].toLowerCase();
-    const arg = parts.slice(1).join(' ');
+    const [cmd, ...args] = raw.split(" ");
+    const arg = args.join(" ").toLowerCase();
 
-    if (cmd === 'clear') {
-      outputEl.innerHTML = '';
+    if (cmd === "clear") {
+      outputEl.innerHTML = "";
       return;
     }
 
-    if (cmd === 'open') {
-      if (!arg) {
-        appendLine('Usage: open <page> (example: open notes)', 'muted');
-        return;
-      }
-      // try to show panel first if known
+    if (cmd === "open") {
+      if (!arg) return appendLine("Usage: open <page>", "muted");
       if (panelMap[arg] !== undefined) {
         showPanel(arg);
-        await typeLine(`Opening panel: ${arg}`, 10, 'muted');
-        return;
+        await typeLine(`Opening ${arg} panel...`, 10, "muted");
+      } else {
+        window.open(`${arg}.html`, "_blank");
       }
-      // otherwise try to open an external file like notes.html
-      const candidate = `${arg}.html`;
-      appendLine(`Attempting to open ${candidate}...`, 'muted');
-      // open in new tab (GitHub Pages will serve it if present)
-      window.open(candidate, '_blank', 'noopener');
       return;
     }
 
     if (responses[cmd]) {
-      // show panel if it exists
-      if (panelMap[cmd] !== undefined) {
-        showPanel(cmd);
-      }
-      // typing effect for response
-      await typeLine(responses[cmd], 10, 'muted');
+      await typeLine(responses[cmd], 10, "muted");
       return;
     }
 
-    appendLine(`Command not found: ${cmd}  — type help.`, 'muted');
-  }
-
-  // basic escape
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]));
-  }
-
-  // wire chips
-  chipEls.forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-      const c = btn.dataset.cmd;
-      // set input (visual) then run
-      if (cmdInput) cmdInput.value = c;
-      await execute(c);
-      if (cmdInput) { cmdInput.value = ''; cmdInput.focus(); }
-    });
-  });
-
-  // form submit / run button
-  if (promptForm) {
-    promptForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!cmdInput) return;
-      const v = cmdInput.value;
-      await execute(v);
-      cmdInput.value = '';
-      cmdInput.focus();
-    });
-  }
-  if (runBtn) {
-    runBtn.addEventListener('click', async (e) => {
-      e.preventDefault();
-      if (!cmdInput) return;
-      const v = cmdInput.value;
-      await execute(v);
-      cmdInput.value = '';
-      cmdInput.focus();
-    });
-  }
-
-  // keyboard shortcuts
-  window.addEventListener('keydown', (e) => {
-    // focus input with Ctrl/Cmd+K
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-      e.preventDefault();
-      cmdInput && cmdInput.focus();
+    if (panelMap[cmd] !== undefined) {
+      showPanel(cmd);
+      await typeLine(`Opened ${cmd} panel.`, 10, "muted");
+      return;
     }
-    // Escape blurs input
-    if (e.key === 'Escape') cmdInput && cmdInput.blur();
+
+    appendLine(`Command not found: ${cmd}`, "muted");
+  }
+
+  chipEls.forEach((chip) =>
+    chip.addEventListener("click", () => execute(chip.dataset.cmd))
+  );
+
+  promptForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    execute(cmdInput.value);
+    cmdInput.value = "";
   });
 
-  // GUI buttons (resume/notes)
-  const resumeBtn = document.getElementById('downloadResume');
-  const notesBtn = document.getElementById('openNotesGUI');
-  if (resumeBtn) {
-    resumeBtn.addEventListener('click', () => {
-      window.open('resume.pdf', '_blank', 'noopener');
-    });
-  }
-  if (notesBtn) {
-    notesBtn.addEventListener('click', () => {
-      window.open('notes.html', '_blank', 'noopener');
-    });
-  }
+  runBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    execute(cmdInput.value);
+    cmdInput.value = "";
+  });
 
-  // initial welcome lines with subtle typing
+  const resumeBtn = document.getElementById("downloadResume");
+  const notesBtn = document.getElementById("openNotesGUI");
+  resumeBtn?.addEventListener("click", () =>
+    window.open("resume.pdf", "_blank")
+  );
+  notesBtn?.addEventListener("click", () =>
+    window.open("notes.html", "_blank")
+  );
+
   (async function intro() {
-    try {
-      await typeLine('rithwik@portfolio: welcome', 12, 'muted');
-      await typeLine('Type help to list commands — CLI + GUI hybrid enabled.', 10, 'muted');
-    } catch (e) {
-      // fail silently
-      console.warn('intro typing failed', e);
-    }
+    await typeLine("rithwik@portfolio: welcome", 12, "muted");
+    await typeLine("Type help to list commands.", 10, "muted");
   })();
 
-  // ensure cmdInput exists and focus
-  setTimeout(()=> { if (cmdInput) cmdInput.focus(); }, 400);
-})();
+  cmdInput?.focus();
+});
