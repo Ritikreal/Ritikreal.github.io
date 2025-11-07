@@ -1,27 +1,30 @@
 <!doctype html>
 <html lang="en">
-<head> 
+<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Rithwik — Terminal Portfolio</title>
+  <meta name="description" content="AMOLED terminal-inspired portfolio — hybrid UI (terminal + panels). Commands: help, about, projects, resume, notes, tools, contact, open <page>, clear." />
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app" class="app" role="application">
+  <div id="app" class="app" role="application" aria-label="Terminal portfolio app">
     <!-- LEFT: Terminal -->
-    <aside class="sidebar">
+    <aside class="sidebar" aria-label="Terminal sidebar">
       <div class="topbar">
-        <div class="dots"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span></div>
+        <div class="dots" aria-hidden="true">
+          <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+        </div>
         <div class="brand">
           <div class="mono">rithwik@portfolio</div>
           <div class="muted small">terminal — amoled · hybrid UI</div>
         </div>
       </div>
 
-      <div id="terminal" class="terminal" tabindex="0">
+      <div id="terminal" class="terminal" tabindex="0" aria-live="polite">
         <div class="welcome">
           <div class="muted">Welcome — type <span class="cmd inline">help</span> to see commands.</div>
-          <div class="muted small">Try <span class="cmd inline">about</span> or <span class="cmd inline">projects</span>.</div>
+          <div class="muted small">Tip: Try <span class="cmd inline">open projects</span> or click chips below.</div>
         </div>
         <div id="output" class="output"></div>
       </div>
@@ -29,7 +32,7 @@
       <form id="promptForm" class="promptForm">
         <div class="promptBar">
           <div class="promptIcon">➜</div>
-          <input id="cmdInput" class="cmdInput" autocomplete="off" spellcheck="false" />
+          <input id="cmdInput" class="cmdInput" autocomplete="off" spellcheck="false" placeholder="Type command..." />
           <button id="runBtn" class="btn">Run</button>
         </div>
       </form>
@@ -39,40 +42,47 @@
         <button class="chip" data-cmd="about">about</button>
         <button class="chip" data-cmd="projects">projects</button>
         <button class="chip" data-cmd="resume">resume</button>
+        <button class="chip" data-cmd="notes">notes</button>
         <button class="chip" data-cmd="tools">tools</button>
         <button class="chip" data-cmd="contact">contact</button>
         <button class="chip" data-cmd="clear">clear</button>
-        <button class="chip" data-cmd="exit">exit</button>
       </div>
     </aside>
 
-    <!-- RIGHT: Content -->
+    <!-- RIGHT: Panels -->
     <main class="content" id="content">
       <!-- HERO -->
-      <section id="panel-hero" class="card hero active">
-        <div class="left"><div class="avatar">RV</div></div>
+      <section id="panel-hero" class="card hero active" data-panel="hero">
+        <div class="left">
+          <div class="avatar">RV</div>
+        </div>
         <div class="center">
           <h1>Rithwik V Kumar</h1>
-          <p class="muted">Electronics Engineer • Toolmaker • Open-source tinkerer</p>
+          <p class="muted">Electronics Engineer • Embedded Systems Developer • IoT Innovator</p>
           <div class="meta">
-            <span class="tag">Arch Linux Enthusiast</span>
-            <span class="tag">Web / Embedded</span>
+            <span class="tag">Embedded</span>
+            <span class="tag">IoT</span>
             <span class="tag">Open Source</span>
+            <span class="tag">Arch Linux</span>
           </div>
-          <p class="muted small">Currently pursuing my degree at <b>Dayananda Sagar Academy of Technology and Management (DSATM)</b>.</p>
+        </div>
+        <div class="right">
+          <button class="btn ghost" id="downloadResume">Download Resume</button>
+          <button class="btn ghost" id="openNotesGUI">Open Notes</button>
         </div>
       </section>
 
-      <!-- PANELS -->
+      <!-- DYNAMIC PANELS -->
       <section id="panel-area" class="card panel-area">
         <div class="panel" id="about" data-panel="about" hidden>
           <h2>About</h2>
-          <p>Hello! I'm Rithwik — an <b>Electronics Engineer</b> passionate about creating tools, interfaces, and embedded systems that merge software with hardware efficiency.</p>
-          <p>I value minimalism, performance, and smooth UX experiences.</p>
-          <h3>Hobbies</h3>
+          <p>Hello! I'm <strong>Rithwik V Kumar</strong> — an Electronics and Embedded Systems Engineer passionate about building efficient, low-power devices and intuitive digital tools. My focus is on blending hardware and software into compact, real-world solutions.</p>
+          <h3>Focus Areas</h3>
           <ul>
-            <li>Jumping Linux distros</li>
-            <li>Exploring cars — petrol head at heart 🏎️</li>
+            <li>Embedded Systems (ESP32 / Arduino / STM32)</li>
+            <li>IoT Design and Wireless Communication (LoRa, BLE, Wi-Fi)</li>
+            <li>Sensor Networks & Environmental Devices</li>
+            <li>Automation & Edge Computing</li>
           </ul>
         </div>
 
@@ -80,40 +90,75 @@
           <h2>Projects</h2>
           <div class="projectsGrid">
             <article class="project">
-              <h4>Soil Health Sensor</h4>
-              <p>Compact LoRaWAN-enabled soil health sensor system using ESP32 for humidity & temperature monitoring. <b>Currently in progress.</b></p>
+              <h4>Soil Health Sensor Network</h4>
+              <p>Compact LoRaWAN-enabled sensors monitoring soil moisture and temperature using ESP32 modules and VH400 probes.</p>
               <div class="tags"><span class="tag">ESP32</span><span class="tag">LoRa</span><span class="tag">IoT</span></div>
+            </article>
+            <article class="project">
+              <h4>Smart Home Controller</h4>
+              <p>Fully open-source home automation board with OTA updates and cloud control, using ESP8266 and MQTT protocols.</p>
+              <div class="tags"><span class="tag">MQTT</span><span class="tag">ESP8266</span><span class="tag">Automation</span></div>
+            </article>
+            <article class="project">
+              <h4>Hybrid Terminal Portfolio</h4>
+              <p>This interactive AMOLED-themed hybrid terminal UI portfolio built for GitHub Pages.</p>
+              <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
             </article>
           </div>
         </div>
 
         <div class="panel" id="resume" data-panel="resume" hidden>
           <h2>Resume</h2>
+          <p class="muted">Electronics Engineer — Embedded Systems & IoT</p>
           <ul>
-            <li>Hands-on with IoT, web tools, and embedded systems.</li>
-            <li>Focused on open-source and practical applications.</li>
-            <li>Arch Linux workflow enthusiast.</li>
+            <li>Experience building IoT devices and real-time embedded firmware</li>
+            <li>Proficient with ESP32, Arduino, Raspberry Pi, STM32</li>
+            <li>Skilled in circuit design, debugging, and PCB prototyping</li>
+            <li>Open-source contributor and automation enthusiast</li>
           </ul>
+        </div>
+
+        <div class="panel" id="notes" data-panel="notes" hidden>
+          <h2>Notes / Blog</h2>
+          <p>Explore detailed breakdowns of my circuit design experiments, firmware techniques, and embedded tips.  
+          Use <code>open notes</code> to access full logs.</p>
         </div>
 
         <div class="panel" id="tools" data-panel="tools" hidden>
           <h2>Tools & Tech</h2>
           <div class="techGrid">
-            <div class="tech">ESP32</div><div class="tech">LoRa</div><div class="tech">Node.js</div>
-            <div class="tech">Git</div><div class="tech">Vim</div><div class="tech">Docker</div>
+            <div class="tech">ESP32</div>
+            <div class="tech">STM32</div>
+            <div class="tech">LoRa</div>
+            <div class="tech">Arduino IDE</div>
+            <div class="tech">KiCad</div>
+            <div class="tech">PlatformIO</div>
+            <div class="tech">Git</div>
+            <div class="tech">Linux (Arch)</div>
           </div>
         </div>
 
         <div class="panel" id="contact" data-panel="contact" hidden>
           <h2>Contact</h2>
-          <p><a href="mailto:rithprakum@gmail.com" class="link">rithprakum@gmail.com</a></p>
+          <p class="muted">Email</p>
+          <p><a class="link" href="mailto:rithwikvkumar@example.com">rithwikvkumar@example.com</a></p>
+          <p class="muted">Socials</p>
           <p>
-            <a class="link" href="https://github.com/Ritikreal" target="_blank">GitHub</a> ·
-            <a class="link" href="https://www.linkedin.com/in/rithwik-v-kumar-74aba4334" target="_blank">LinkedIn</a> ·
-            <a class="link" href="https://open.spotify.com/user/r3gqfowv3mch550g1kyzln2ii" target="_blank">Spotify</a>
+            <a class="link" href="https://github.com/ritikreal" target="_blank">GitHub</a> ·
+            <a class="link" href="https://www.linkedin.com/in/rithwikvkumar" target="_blank">LinkedIn</a>
           </p>
         </div>
       </section>
+
+      <footer class="card footer">
+        <div class="small muted">Quick commands</div>
+        <div class="footer-chips">
+          <button class="chip" data-cmd="projects">projects</button>
+          <button class="chip" data-cmd="open notes">open notes</button>
+          <button class="chip" data-cmd="resume">resume</button>
+          <button class="chip" data-cmd="contact">contact</button>
+        </div>
+      </footer>
     </main>
   </div>
 
