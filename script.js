@@ -1,130 +1,113 @@
-
+// === script.js ===
+// Terminal Portfolio Logic — by GPT-5
 document.addEventListener("DOMContentLoaded", () => {
-  const output = document.getElementById("output");
   const cmdInput = document.getElementById("cmdInput");
+  const output = document.getElementById("output");
   const form = document.getElementById("promptForm");
-  const contentPanels = document.querySelectorAll(".panel");
-  const terminal = document.getElementById("terminal");
+  const panels = document.querySelectorAll(".panel");
+  const chips = document.querySelectorAll(".chip");
 
-  // Utility — print with typing effect
-  const typeLine = (text, speed = 20) => {
-    return new Promise((resolve) => {
-      const line = document.createElement("p");
-      output.appendChild(line);
-      let i = 0;
-      const interval = setInterval(() => {
-        line.textContent = text.slice(0, i++);
-        terminal.scrollTop = terminal.scrollHeight;
-        if (i > text.length) {
-          clearInterval(interval);
-          resolve();
-        }
-      }, speed);
-    });
-  };
-
-  const printLine = (text = "") => {
-    const p = document.createElement("p");
-    p.textContent = text;
-    output.appendChild(p);
-    terminal.scrollTop = terminal.scrollHeight;
-  };
-
-  // Startup animation
-  async function bootSequence() {
-    output.innerHTML = "";
-    await typeLine("Initializing terminal environment...");
-    await typeLine("Loading modules...");
-    await typeLine("Establishing neural link with user session...");
-    await typeLine(" ");
-    await typeLine("█▀█ █ ▀█▀ █ █ █ █▄ █ █");
-    await typeLine("█▀▀ █  █  █▀█ █ █ ▀█ █");
-    await typeLine(" ");
-    await typeLine("Welcome, Rithwik. Type 'help' for available commands.");
-    printLine("─────────────────────────────────────");
-  }
-
-  // Command definitions
   const commands = {
-    help: () => {
-      printLine("Available commands:");
-      printLine("  about      — About me");
-      printLine("  projects   — My projects");
-      printLine("  resume     — Education & experience");
-      printLine("  tools      — Tools I use");
-      printLine("  contact    — Reach me");
-      printLine("  clear      — Clear terminal");
-      printLine("  exit       — Shutdown sequence");
-    },
+    help: () =>
+      printOutput(
+        "Commands: <span class='cmd'>help</span>, <span class='cmd'>about</span>, <span class='cmd'>projects</span>, <span class='cmd'>resume</span>, <span class='cmd'>tools</span>, <span class='cmd'>contact</span>, <span class='cmd'>clear</span>, <span class='cmd'>exit</span>"
+      ),
 
     about: () => showPanel("about"),
     projects: () => showPanel("projects"),
     resume: () => showPanel("resume"),
+    notes: () => showPanel("notes"),
     tools: () => showPanel("tools"),
     contact: () => showPanel("contact"),
 
     clear: () => (output.innerHTML = ""),
-
-    exit: async () => {
-      await typeLine("Initiating system shutdown...");
-      await typeLine("Saving session logs...");
-      await typeLine("Powering down interface in 5...");
-      await countdownExit();
-    },
+    exit: () => exitSequence(),
   };
 
-  // Panel control
-  function showPanel(name) {
-    contentPanels.forEach((p) => (p.hidden = p.dataset.panel !== name));
-    printLine(`Opening ${name}...`);
-  }
-
-  // Handle command submit
+  // === FORM HANDLING ===
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const cmd = cmdInput.value.trim().toLowerCase();
     if (!cmd) return;
-    printLine(`➜ ${cmd}`);
-    cmdInput.value = "";
+
+    printOutput(`<span class="cmd-line">➜ ${cmd}</span>`);
 
     if (commands[cmd]) {
       commands[cmd]();
     } else {
-      printLine(`Command not found: ${cmd}`);
+      printOutput(`<span class="muted">Unknown command: ${cmd}</span>`);
     }
+
+    cmdInput.value = "";
   });
 
-  // Exit animation
-  async function countdownExit() {
-    const overlay = document.createElement("div");
-    overlay.id = "exitScreen";
-    overlay.style.display = "flex";
-    overlay.style.flexDirection = "column";
-    overlay.style.alignItems = "center";
-    overlay.style.justifyContent = "center";
-    overlay.style.background = "black";
-    overlay.style.color = "#00ff9f";
-    overlay.style.position = "fixed";
-    overlay.style.inset = "0";
-    overlay.style.zIndex = "3000";
-    overlay.style.fontFamily = "ui-monospace";
-    overlay.style.fontSize = "32px";
-    document.body.appendChild(overlay);
+  // === CHIP SHORTCUTS ===
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      cmdInput.value = chip.dataset.cmd;
+      form.dispatchEvent(new Event("submit"));
+    });
+  });
 
-    for (let i = 5; i > 0; i--) {
-      overlay.textContent = `Shutting down in ${i}...`;
-      await new Promise((r) => setTimeout(r, 1000));
-    }
-
-    overlay.textContent = "Power off complete.";
-    await new Promise((r) => setTimeout(r, 800));
-
-    // Fade to black
-    overlay.style.transition = "background 1s ease-in-out";
-    overlay.style.background = "black";
-    overlay.textContent = "";
+  // === OUTPUT FUNCTION ===
+  function printOutput(html) {
+    const line = document.createElement("div");
+    line.classList.add("terminal-line");
+    line.innerHTML = html;
+    output.appendChild(line);
+    output.scrollTop = output.scrollHeight;
   }
 
-  // Start system
+  // === PANEL HANDLING ===
+  function showPanel(id) {
+    panels.forEach((p) => (p.hidden = true));
+    const panel = document.getElementById(id);
+    if (panel) {
+      panel.hidden = false;
+      panel.scrollIntoView({ behavior: "smooth", block: "center" });
+      printOutput(`<span class='muted'>Opened panel: ${id}</span>`);
+    } else {
+      printOutput(`<span class='muted'>Panel not found: ${id}</span>`);
+    }
+  }
+
+  // === EXIT COMMAND ===
+  function exitSequence() {
+    printOutput("<span class='muted'>Shutting down terminal...</span>");
+    setTimeout(() => {
+      document.body.style.background = "black";
+      document.body.innerHTML = `
+        <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:black;color:#00ff9f;font-family:monospace;font-size:18px;">
+          <pre>
+          SYSTEM OFFLINE...
+          <br><br>
+          <span style="color:#555;">Press F5 to reboot</span>
+          </pre>
+        </div>`;
+    }, 1500);
+  }
+
+  // === STARTUP EFFECT ===
   bootSequence();
+
+  function bootSequence() {
+    const bootMessages = [
+      "Initializing Rithwik Portfolio v1.0...",
+      "Loading modules…",
+      "Setting up terminal environment…",
+      "Connecting to UI renderer…",
+      "System ready.",
+      "Type 'help' to begin.",
+    ];
+
+    let delay = 0;
+    output.innerHTML = "";
+    bootMessages.forEach((msg, i) => {
+      setTimeout(() => {
+        printOutput(`<span class="muted">${msg}</span>`);
+        if (i === bootMessages.length - 1)
+          printOutput(`<span class="cmd">rithwik@portfolio ➜</span>`);
+      }, (delay += 600));
+    });
+  }
 });
