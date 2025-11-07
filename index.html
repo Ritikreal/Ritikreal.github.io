@@ -61,30 +61,33 @@
           </div>
           <p class="muted small">Currently pursuing my degree at <b>Dayananda Sagar Academy of Technology and Management (DSATM)</b>.</p>
         </div>
-
-        <div class="right">
-          <button id="menuBtn" class="btn ghost">☰</button>
-        </div>
       </section>
 
       <!-- PANELS -->
       <section id="panel-area" class="card panel-area">
-        <div class="panel" id="about" hidden>
+        <div class="panel" id="about" data-panel="about" hidden>
           <h2>About</h2>
           <p>Hello! I'm Rithwik — an <b>Electronics Engineer</b> passionate about creating tools, interfaces, and embedded systems that merge software with hardware efficiency.</p>
           <p>I value minimalism, performance, and smooth UX experiences.</p>
+          <h3>Hobbies</h3>
+          <ul>
+            <li>Jumping Linux distros</li>
+            <li>Exploring cars — petrol head at heart 🏎️</li>
+          </ul>
         </div>
 
-        <div class="panel" id="projects" hidden>
+        <div class="panel" id="projects" data-panel="projects" hidden>
           <h2>Projects</h2>
-          <article class="project">
-            <h4>Soil Health Sensor</h4>
-            <p>Compact LoRaWAN-enabled soil health sensor using ESP32 for humidity & temperature monitoring.</p>
-            <div class="tags"><span class="tag">ESP32</span><span class="tag">LoRa</span><span class="tag">IoT</span></div>
-          </article>
+          <div class="projectsGrid">
+            <article class="project">
+              <h4>Soil Health Sensor</h4>
+              <p>Compact LoRaWAN-enabled soil health sensor system using ESP32 for humidity & temperature monitoring. <b>Currently in progress.</b></p>
+              <div class="tags"><span class="tag">ESP32</span><span class="tag">LoRa</span><span class="tag">IoT</span></div>
+            </article>
+          </div>
         </div>
 
-        <div class="panel" id="resume" hidden>
+        <div class="panel" id="resume" data-panel="resume" hidden>
           <h2>Resume</h2>
           <ul>
             <li>Hands-on with IoT, web tools, and embedded systems.</li>
@@ -93,7 +96,7 @@
           </ul>
         </div>
 
-        <div class="panel" id="tools" hidden>
+        <div class="panel" id="tools" data-panel="tools" hidden>
           <h2>Tools & Tech</h2>
           <div class="techGrid">
             <div class="tech">ESP32</div><div class="tech">LoRa</div><div class="tech">Node.js</div>
@@ -101,7 +104,7 @@
           </div>
         </div>
 
-        <div class="panel" id="contact" hidden>
+        <div class="panel" id="contact" data-panel="contact" hidden>
           <h2>Contact</h2>
           <p><a href="mailto:rithprakum@gmail.com" class="link">rithprakum@gmail.com</a></p>
           <p>
@@ -113,22 +116,6 @@
       </section>
     </main>
   </div>
-
-  <!-- SIDE MENU -->
-  <div id="sideMenu" class="side-menu">
-    <button id="closeMenu" class="close-btn">✕</button>
-    <h2>More About Me</h2>
-    <p class="muted">Quick bits and system info</p>
-    <ul>
-      <li>Arch Linux user — minimal setup enthusiast</li>
-      <li>Custom dotfiles and workflows</li>
-      <li>Love tuning cars & Linux kernels</li>
-      <li>Frequent Distro Jumper 🚀</li>
-    </ul>
-  </div>
-
-  <div id="menuOverlay" class="menu-overlay"></div>
-  <div id="shutdownScreen" class="shutdown-screen"></div>
 
   <script src="script.js" defer></script>
 </body>
