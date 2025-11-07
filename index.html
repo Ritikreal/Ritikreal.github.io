@@ -1,160 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head> 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rithwik — Terminal Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="app" class="app" role="application">
-    <!-- LEFT: Terminal -->
-    <aside class="sidebar">
-      <div class="topbar">
-        <div class="dots">
-          <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
-        </div>
-        <div class="brand">
-          <div class="mono">rithwik@portfolio</div>
-          <div class="muted small">terminal — amoled · hybrid UI</div>
-        </div>
-      </div>
+  <div class="terminal">
+    <div id="output" class="output"></div>
 
-      <div id="terminal" class="terminal" tabindex="0">
-        <div class="welcome">
-          <div class="muted">Welcome — type <span class="cmd inline">help</span> to see commands.</div>
-          <div class="muted small">Try <span class="cmd inline">about</span> or <span class="cmd inline">projects</span>.</div>
-        </div>
-        <div id="output" class="output"></div>
-      </div>
+    <form id="promptForm" autocomplete="off">
+      <span class="prompt">rithwik@portfolio ➜ </span>
+      <input type="text" id="cmdInput" autofocus placeholder="type a command..." />
+    </form>
 
-      <form id="promptForm" class="promptForm">
-        <div class="promptBar">
-          <div class="promptIcon">➜</div>
-          <input id="cmdInput" class="cmdInput" autocomplete="off" spellcheck="false" placeholder="type command..." />
-          <button id="runBtn" class="btn">Run</button>
-        </div>
-      </form>
-
-      <div class="chips">
-        <button class="chip" data-cmd="help">help</button>
-        <button class="chip" data-cmd="about">about</button>
-        <button class="chip" data-cmd="projects">projects</button>
-        <button class="chip" data-cmd="resume">resume</button>
-        <button class="chip" data-cmd="tools">tools</button>
-        <button class="chip" data-cmd="contact">contact</button>
-        <button class="chip" data-cmd="clear">clear</button>
-      </div>
-    </aside>
-
-    <!-- RIGHT: Content -->
-    <main class="content" id="content">
-      <!-- HERO -->
-      <section id="panel-hero" class="card hero active">
-        <div class="left"><div class="avatar">RV</div></div>
-        <div class="center">
-          <h1>Rithwik V Kumar</h1>
-          <p class="muted">Electronics Engineer • Toolmaker • Open-source tinkerer</p>
-          <div class="meta">
-            <span class="tag">Arch Linux Enthusiast</span>
-            <span class="tag">Web / Embedded</span>
-            <span class="tag">Open Source</span>
-          </div>
-          <p class="muted small">Currently pursuing my degree at <b>Dayananda Sagar Academy of Technology and Management (DSATM)</b>.</p>
-        </div>
-
-        <!-- MENU BUTTON -->
-        <div class="right">
-          <button id="menuBtn" class="btn ghost">☰</button>
-        </div>
-      </section>
-
-      <!-- PANELS -->
-      <section id="panel-area" class="card panel-area">
-        <div class="panel" id="about" data-panel="about" hidden>
-          <h2>About</h2>
-          <p>Hello! I'm Rithwik — an <b>Electronics Engineer</b> passionate about creating tools, interfaces, and embedded systems that merge software with hardware efficiency.</p>
-          <p>I value minimalism, performance, and smooth UX experiences.</p>
-          <h3>Hobbies</h3>
-          <ul>
-            <li>Jumping Linux distros</li>
-            <li>Exploring cars — petrol head at heart 🏎️</li>
-          </ul>
-        </div>
-
-        <div class="panel" id="projects" data-panel="projects" hidden>
-          <h2>Projects</h2>
-          <article class="project">
-            <h4>Soil Health Sensor</h4>
-            <p>Compact LoRaWAN-enabled soil health sensor system using ESP32 for humidity & temperature monitoring. <b>Currently in progress.</b></p>
-            <div class="tags"><span class="tag">ESP32</span><span class="tag">LoRa</span><span class="tag">IoT</span></div>
-          </article>
-        </div>
-
-        <div class="panel" id="resume" data-panel="resume" hidden>
-          <h2>Resume</h2>
-          <ul>
-            <li>Hands-on with IoT, web tools, and embedded systems.</li>
-            <li>Focused on open-source and practical applications.</li>
-            <li>Arch Linux workflow enthusiast.</li>
-          </ul>
-        </div>
-
-        <div class="panel" id="tools" data-panel="tools" hidden>
-          <h2>Tools & Tech</h2>
-          <div class="techGrid">
-            <div class="tech">ESP32</div><div class="tech">LoRa</div><div class="tech">Node.js</div>
-            <div class="tech">Git</div><div class="tech">Vim</div><div class="tech">Docker</div>
-          </div>
-        </div>
-
-        <div class="panel" id="contact" data-panel="contact" hidden>
-          <h2>Contact</h2>
-          <p><a href="mailto:rithprakum@gmail.com" class="link">rithprakum@gmail.com</a></p>
-          <p>
-            <a class="link" href="https://github.com/Ritikreal" target="_blank">GitHub</a> ·
-            <a class="link" href="https://www.linkedin.com/in/rithwik-v-kumar-74aba4334" target="_blank">LinkedIn</a> ·
-            <a class="link" href="https://open.spotify.com/user/r3gqfowv3mch550g1kyzln2ii" target="_blank">Spotify</a>
-          </p>
-        </div>
-      </section>
-    </main>
+    <div class="chips">
+      <button class="chip" data-cmd="help">help</button>
+      <button class="chip" data-cmd="about">about</button>
+      <button class="chip" data-cmd="projects">projects</button>
+      <button class="chip" data-cmd="resume">resume</button>
+      <button class="chip" data-cmd="tools">tools</button>
+      <button class="chip" data-cmd="contact">contact</button>
+      <button class="chip" data-cmd="exit">exit</button>
+    </div>
   </div>
 
-  <!-- SIDE MENU -->
-  <div id="sideMenu" class="side-menu">
-    <button id="closeMenu" class="close-btn">✕</button>
-    <h2>More About Me</h2>
-    <p class="muted">Quick bits and system info</p>
+  <!-- Panels -->
+  <div id="about" class="panel" hidden>
+    <h2>About Me</h2>
+    <p>Hello! I'm Rithwik, a passionate developer exploring modern web, IoT, and automation.</p>
+  </div>
+
+  <div id="projects" class="panel" hidden>
+    <h2>Projects</h2>
     <ul>
-      <li>Arch Linux user — minimal setup enthusiast</li>
-      <li>Custom dotfiles and workflows</li>
-      <li>Love tuning cars & Linux kernels</li>
-      <li>Frequent Distro Jumper 🚀</li>
+      <li>🌐 Personal Portfolio</li>
+      <li>🧠 AI Tools Integration</li>
+      <li>⚙️ Automation Scripts</li>
     </ul>
   </div>
 
-  <div id="menuOverlay" class="menu-overlay"></div>
+  <div id="resume" class="panel" hidden>
+    <h2>Resume</h2>
+    <p>Download my <a href="resume.pdf" target="_blank">resume here</a>.</p>
+  </div>
 
-  <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const sideMenu = document.getElementById('sideMenu');
-    const overlay = document.getElementById('menuOverlay');
-    const closeMenu = document.getElementById('closeMenu');
+  <div id="tools" class="panel" hidden>
+    <h2>Tools & Tech</h2>
+    <p>VS Code, Git, Node.js, ESP32, React, and more...</p>
+  </div>
 
-    menuBtn.addEventListener('click', () => {
-      sideMenu.classList.add('active');
-      overlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
+  <div id="contact" class="panel" hidden>
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:rithwikvkumar@gmail.com">rithwikvkumar@gmail.com</a></p>
+  </div>
 
-    const closeSideMenu = () => {
-      sideMenu.classList.remove('active');
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    };
-    closeMenu.addEventListener('click', closeSideMenu);
-    overlay.addEventListener('click', closeSideMenu);
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
