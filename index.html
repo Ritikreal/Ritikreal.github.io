@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Rithwik — Terminal Portfolio</title>
-  <meta name="description" content="AMOLED terminal-inspired portfolio — hybrid UI (terminal + panels). Commands: help, about, projects, resume, notes, tools, contact, open <page>, clear." />
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -61,6 +60,11 @@
           </div>
           <p class="muted small">Currently pursuing my degree at <b>Dayananda Sagar Academy of Technology and Management (DSATM)</b>.</p>
         </div>
+
+        <!-- 🔹 NEW MENU BUTTON -->
+        <div class="right">
+          <button id="menuBtn" class="btn ghost">☰</button>
+        </div>
       </section>
 
       <!-- PANELS -->
@@ -89,7 +93,6 @@
 
         <div class="panel" id="resume" data-panel="resume" hidden>
           <h2>Resume</h2>
-          <p class="muted">Quick summary:</p>
           <ul>
             <li>Hands-on with IoT, web tools, and embedded systems.</li>
             <li>Focused on open-source and practical applications.</li>
@@ -99,7 +102,6 @@
 
         <div class="panel" id="tools" data-panel="tools" hidden>
           <h2>Tools & Tech</h2>
-          <p class="muted">Frequently used:</p>
           <div class="techGrid">
             <div class="tech">ESP32</div><div class="tech">LoRa</div><div class="tech">Node.js</div>
             <div class="tech">Git</div><div class="tech">Vim</div><div class="tech">Docker</div>
@@ -108,9 +110,7 @@
 
         <div class="panel" id="contact" data-panel="contact" hidden>
           <h2>Contact</h2>
-          <p class="muted">Email:</p>
           <p><a href="mailto:rithprakum@gmail.com" class="link">rithprakum@gmail.com</a></p>
-          <p class="muted">Socials:</p>
           <p>
             <a class="link" href="https://github.com/Ritikreal" target="_blank">GitHub</a> ·
             <a class="link" href="https://www.linkedin.com/in/rithwik-v-kumar-74aba4334" target="_blank">LinkedIn</a> ·
@@ -121,6 +121,43 @@
     </main>
   </div>
 
+  <!-- 🔹 NEW SIDE MENU -->
+  <div id="sideMenu" class="side-menu">
+    <button id="closeMenu" class="close-btn">✕</button>
+    <h2>More About Me</h2>
+    <p class="muted">Quick bits and system info</p>
+    <ul>
+      <li>Arch Linux user — minimal setup enthusiast</li>
+      <li>Custom dotfiles and workflows</li>
+      <li>Love tuning cars & Linux kernels</li>
+      <li>Frequent Distro Jumper 🚀</li>
+    </ul>
+  </div>
+
+  <div id="menuOverlay" class="menu-overlay"></div>
+
   <script src="script.js" defer></script>
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('menuOverlay');
+    const closeMenu = document.getElementById('closeMenu');
+
+    function openMenu() {
+      sideMenu.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSideMenu() {
+      sideMenu.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    menuBtn.addEventListener('click', openMenu);
+    closeMenu.addEventListener('click', closeSideMenu);
+    overlay.addEventListener('click', closeSideMenu);
+  </script>
 </body>
 </html>
