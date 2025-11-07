@@ -133,6 +133,7 @@ body {
   height: auto;
   min-height: 100vh;
   overflow: visible;
+  padding-bottom: 50px;
 }
 .card {
   background: linear-gradient(180deg, rgba(255,255,255,0.006), rgba(255,255,255,0.004));
@@ -140,7 +141,6 @@ body {
   padding: var(--card-pad);
   border: 1px solid var(--glass-border);
   box-shadow: 0 18px 50px rgba(0,0,0,0.6);
-  min-height: 0;
 }
 
 /* Hero */
