@@ -1,101 +1,56 @@
-/* === Terminal Portfolio Style === */
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
+/* Additions at the bottom */
 
-:root {
-  --bg: #000000;
-  --text: #00ff9f;
-  --muted: #888;
-  --chip-bg: #111;
-  --chip-hover: #222;
-  --accent: #00ff9f;
+.side-menu {
+  position: fixed;
+  right: -320px;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: rgba(10,10,10,0.96);
+  border-left: 1px solid var(--glass-border);
+  padding: 24px;
+  transition: right 0.3s ease;
+  z-index: 1001;
 }
+.side-menu.active { right: 0; }
 
-body {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: 'Fira Code', monospace;
-  font-size: 15px;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  overflow-y: scroll;
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
 }
-
-.terminal {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background: #000;
-  border-radius: 12px;
-  box-shadow: 0 0 20px #00ff9f22;
-  overflow: hidden;
+.menu-overlay.active {
+  opacity: 1;
+  pointer-events: all;
 }
-
-.output {
-  min-height: 60vh;
-  white-space: pre-wrap;
-  overflow-y: auto;
-}
-
-.prompt {
-  color: var(--accent);
-}
-
-#cmdInput {
-  background: transparent;
+.close-btn {
+  background: none;
   border: none;
-  color: var(--text);
-  width: 60%;
-  outline: none;
-  caret-color: var(--accent);
-}
-
-.cmd-line {
   color: var(--accent);
-}
-
-.chips {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.chip {
-  background: var(--chip-bg);
-  color: var(--text);
-  border: 1px solid var(--accent);
-  border-radius: 8px;
-  padding: 6px 12px;
-  font-family: inherit;
+  font-size: 20px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  float: right;
 }
 
-.chip:hover {
-  background: var(--chip-hover);
-  transform: scale(1.05);
-}
-
-.panel {
-  background: #050505;
-  border-left: 2px solid var(--accent);
-  padding: 1rem 2rem;
-  margin: 2rem auto;
-  max-width: 800px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px #00ff9f33;
-}
-
-a {
+/* Shutdown screen animation */
+.shutdown-screen {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: none;
+  align-items: center;
+  justify-content: center;
   color: var(--accent);
-  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 48px;
+  z-index: 2000;
+  transition: opacity 1s ease;
 }
-
-a:hover {
-  text-decoration: underline;
-}
-
-.muted {
-  color: var(--muted);
+.shutdown-screen.visible {
+  display: flex;
 }
