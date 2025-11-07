@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rithwik — Terminal Portfolio</title>
+  <meta name="description" content="AMOLED terminal-inspired portfolio — hybrid UI (terminal + panels). Commands: help, about, projects, resume, notes, tools, contact, open <page>, clear." />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="app" role="application" aria-label="Terminal portfolio app">
+    <!-- LEFT: Terminal -->
+    <aside class="sidebar" aria-label="Terminal sidebar">
+      <div class="topbar">
+        <div class="dots" aria-hidden="true">
+          <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+        </div>
+        <div class="brand">
+          <div class="mono">rithwik@portfolio</div>
+          <div class="muted small">terminal — amoled · hybrid UI</div>
+        </div>
+      </div>
+
+      <div id="terminal" class="terminal" tabindex="0" aria-live="polite" aria-atomic="false">
+        <div class="welcome">
+          <div class="muted">Welcome — type <span class="cmd inline">help</span> to see commands.</div>
+          <div class="muted small">Tip: Try <span class="cmd inline">open projects</span> or click chips below.</div>
+        </div>
+        <div id="output" class="output" aria-hidden="false"></div>
+      </div>
+
+      <form id="promptForm" class="promptForm" role="search" aria-label="Command input">
+        <div class="promptBar">
+          <div class="promptIcon">➜</div>
+          <input id="cmdInput" class="cmdInput" autocomplete="off" spellcheck="false" aria-label="Type a command" />
+          <button id="runBtn" class="btn" aria-label="Run">Run</button>
+        </div>
+      </form>
+
+      <div class="chips" aria-hidden="false">
+        <button class="chip" data-cmd="help">help</button>
+        <button class="chip" data-cmd="about">about</button>
+        <button class="chip" data-cmd="projects">projects</button>
+        <button class="chip" data-cmd="resume">resume</button>
+        <button class="chip" data-cmd="notes">notes</button>
+        <button class="chip" data-cmd="tools">tools</button>
+        <button class="chip" data-cmd="contact">contact</button>
+        <button class="chip" data-cmd="clear">clear</button>
+      </div>
+    </aside>
+
+    <!-- RIGHT: Panels -->
+    <main class="content" id="content" aria-live="polite">
+      <!-- HERO -->
+      <section id="panel-hero" class="card hero active" data-panel="hero" tabindex="0">
+        <div class="left">
+          <div class="avatar">RV</div>
+        </div>
+        <div class="center">
+          <h1>Rithwik V Kumar</h1>
+          <p class="muted">Software engineer • Toolmaker • Open-source tinkerer</p>
+          <div class="meta">
+            <span class="tag">Arch-friendly</span>
+            <span class="tag">Web / Embedded</span>
+            <span class="tag">Open Source</span>
+          </div>
+        </div>
+        <div class="right">
+          <button class="btn ghost" id="downloadResume">Download Resume</button>
+          <button class="btn ghost" id="openNotesGUI">Open Notes</button>
+        </div>
+      </section>
+
+      <!-- DYNAMIC CONTENT AREA (about/projects/resume/notes/tools/contact) -->
+      <section id="panel-area" class="card panel-area" tabindex="0">
+        <!-- default content -->
+        <div class="panel" id="about" data-panel="about" hidden>
+          <h2>About</h2>
+          <p>Hello! I'm Rithwik — I build tools, write code, and ship useful open-source projects. I prefer minimal, high-quality UX, efficient code, and an Arch-style workflow.</p>
+          <h3>Focus</h3>
+          <ul>
+            <li>Frontend engineering (HTML/CSS/JS)</li>
+            <li>Embedded systems & IoT</li>
+            <li>Developer tools & automation</li>
+          </ul>
+        </div>
+
+        <div class="panel" id="projects" data-panel="projects" hidden>
+          <h2>Projects</h2>
+          <div class="projectsGrid">
+            <article class="project">
+              <h4>Terminal Portfolio</h4>
+              <p>AMOLED terminal UI + hybrid interactions, deployable on GitHub Pages.</p>
+              <div class="tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
+              </div>
+            </article>
+            <article class="project">
+              <h4>Soil Health Sensor</h4>
+              <p>Compact LoRaWAN-enabled soil sensors with cheap humidity/temperature probes.</p>
+              <div class="tags"><span class="tag">ESP32</span><span class="tag">LoRa</span></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="panel" id="resume" data-panel="resume" hidden>
+          <h2>Resume</h2>
+          <p class="muted">Summary</p>
+          <ul>
+            <li>5+ years building web & embedded tools</li>
+            <li>Open-source contributor</li>
+            <li>Comfortable with Linux workflows</li>
+          </ul>
+        </div>
+
+        <div class="panel" id="notes" data-panel="notes" hidden>
+          <h2>Notes / Blog</h2>
+          <p>Links to your notes and live pages can be opened from commands or the GUI. Add your `notes.html` to the repo and use <code>open notes</code>.</p>
+        </div>
+
+        <div class="panel" id="tools" data-panel="tools" hidden>
+          <h2>Tools & Tech</h2>
+          <p class="muted">Techstack & tools you use</p>
+          <div class="techGrid">
+            <div class="tech">Node.js</div><div class="tech">Git</div><div class="tech">Docker</div>
+            <div class="tech">ESP32</div><div class="tech">LoRa</div><div class="tech">Vim</div>
+          </div>
+        </div>
+
+        <div class="panel" id="contact" data-panel="contact" hidden>
+          <h2>Contact</h2>
+          <p class="muted">Email</p>
+          <p><a class="link" href="mailto:your.email@example.com">your.email@example.com</a></p>
+          <p class="muted">Socials</p>
+          <p>
+            <a class="link" href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a> ·
+            <a class="link" href="https://twitter.com/yourhandle" target="_blank" rel="noopener">Twitter</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- FOOTER / quick actions -->
+      <footer class="card footer">
+        <div class="small muted">Quick commands</div>
+        <div class="footer-chips">
+          <button class="chip" data-cmd="projects">projects</button>
+          <button class="chip" data-cmd="open notes">open notes</button>
+          <button class="chip" data-cmd="resume">resume</button>
+          <button class="chip" data-cmd="contact">contact</button>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
