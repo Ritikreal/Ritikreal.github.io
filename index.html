@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Rithwik — Terminal Portfolio</title>
-  <meta name="description" content="AMOLED hybrid terminal portfolio — interactive UI built for showcasing projects, notes, and embedded systems work by Rithwik V Kumar." />
+  <meta name="description" content="AMOLED terminal-inspired portfolio — hybrid UI (terminal + panels). Commands: help, about, projects, resume, notes, tools, contact, open <page>, clear." />
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -72,9 +72,8 @@
         </div>
       </section>
 
-      <!-- PANELS -->
+      <!-- DYNAMIC PANELS -->
       <section id="panel-area" class="card panel-area">
-        <!-- ABOUT -->
         <div class="panel" id="about" data-panel="about" hidden>
           <h2>About</h2>
           <p>Hello! I'm <strong>Rithwik V Kumar</strong> — an Electronics and Embedded Systems Engineer passionate about building efficient, low-power devices and intuitive digital tools. My focus is on blending hardware and software into compact, real-world solutions.</p>
@@ -87,45 +86,44 @@
           </ul>
         </div>
 
-        <!-- PROJECTS -->
         <div class="panel" id="projects" data-panel="projects" hidden>
           <h2>Projects</h2>
           <div class="projectsGrid">
             <article class="project">
-              <h4>Soil Health Sensor Network <span class="tag muted">In Progress</span></h4>
-              <p>Compact LoRaWAN-enabled soil monitoring network using ESP32 and VH400 moisture sensors for accurate environmental data logging and analysis.</p>
-              <div class="tags"><span class="tag">ESP32</span><span class="tag">LoRa</span><span class="tag">IoT</span><span class="tag">Sensors</span></div>
-              <p><a href="https://github.com/ritikreal/soil-health-sensor" target="_blank" class="link">View on GitHub</a></p>
+              <h4>Soil Health Sensor Network</h4>
+              <p>Compact LoRaWAN-enabled sensors monitoring soil moisture and temperature using ESP32 modules and VH400 probes.</p>
+              <div class="tags"><span class="tag">ESP32</span><span class="tag">LoRa</span><span class="tag">IoT</span></div>
             </article>
-
+            <article class="project">
+              <h4>Smart Home Controller</h4>
+              <p>Fully open-source home automation board with OTA updates and cloud control, using ESP8266 and MQTT protocols.</p>
+              <div class="tags"><span class="tag">MQTT</span><span class="tag">ESP8266</span><span class="tag">Automation</span></div>
+            </article>
             <article class="project">
               <h4>Hybrid Terminal Portfolio</h4>
-              <p>Interactive AMOLED-themed hybrid terminal portfolio built for GitHub Pages with full keyboard-based navigation and command execution.</p>
+              <p>This interactive AMOLED-themed hybrid terminal UI portfolio built for GitHub Pages.</p>
               <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
             </article>
           </div>
         </div>
 
-        <!-- RESUME -->
         <div class="panel" id="resume" data-panel="resume" hidden>
           <h2>Resume</h2>
           <p class="muted">Electronics Engineer — Embedded Systems & IoT</p>
           <ul>
-            <li>Experience designing IoT devices and developing real-time embedded firmware</li>
-            <li>Proficient with ESP32, Arduino, Raspberry Pi, and STM32 platforms</li>
+            <li>Experience building IoT devices and real-time embedded firmware</li>
+            <li>Proficient with ESP32, Arduino, Raspberry Pi, STM32</li>
             <li>Skilled in circuit design, debugging, and PCB prototyping</li>
-            <li>Active open-source contributor and automation enthusiast</li>
+            <li>Open-source contributor and automation enthusiast</li>
           </ul>
         </div>
 
-        <!-- NOTES -->
         <div class="panel" id="notes" data-panel="notes" hidden>
           <h2>Notes / Blog</h2>
-          <p>Explore detailed logs of my embedded projects, circuit experiments, and system optimization notes.  
-          Use <code>open notes</code> to view full notes in <strong>notes.html</strong>.</p>
+          <p>Explore detailed breakdowns of my circuit design experiments, firmware techniques, and embedded tips.  
+          Use <code>open notes</code> to access full logs.</p>
         </div>
 
-        <!-- TOOLS -->
         <div class="panel" id="tools" data-panel="tools" hidden>
           <h2>Tools & Tech</h2>
           <div class="techGrid">
@@ -136,11 +134,10 @@
             <div class="tech">KiCad</div>
             <div class="tech">PlatformIO</div>
             <div class="tech">Git</div>
-            <div class="tech">Arch Linux</div>
+            <div class="tech">Linux (Arch)</div>
           </div>
         </div>
 
-        <!-- CONTACT -->
         <div class="panel" id="contact" data-panel="contact" hidden>
           <h2>Contact</h2>
           <p class="muted">Email</p>
@@ -153,7 +150,6 @@
         </div>
       </section>
 
-      <!-- FOOTER -->
       <footer class="card footer">
         <div class="small muted">Quick commands</div>
         <div class="footer-chips">
