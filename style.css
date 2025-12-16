@@ -118,7 +118,15 @@ body{
 .tag{font-family:var(--mono);font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
 
 /* Panel-area specifics */
-.panel-area{overflow:auto;min-height:220px}
+.panel-area{
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+.panel{
+  overflow-y: auto;
+  max-height: 100%;
+}
 .panel{animation:fadeIn .28s ease both}
 .panel h2{margin-top:0}
 
