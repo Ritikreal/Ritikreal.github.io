@@ -163,3 +163,96 @@ body{
 
 /* accessibility focus */
 * :focus{outline:2px dashed rgba(0,255,159,0.12);outline-offset:4px}
+
+/* =========================
+   Notes Page Styling
+========================= */
+
+body.notes-page{
+  overflow-y: auto;
+  background: radial-gradient(1200px 600px at 50% -10%, rgba(0,255,159,0.04), transparent),
+              var(--bg);
+}
+
+/* Header */
+.notes-page header{
+  max-width: 900px;
+  margin: 40px auto 20px auto;
+  padding: 0 20px;
+}
+
+.notes-page header h1{
+  font-family: var(--mono);
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.notes-page header p{
+  color: var(--muted);
+  max-width: 720px;
+}
+
+/* Notes container */
+.notes-container{
+  max-width: 900px;
+  margin: 0 auto 80px auto;
+  padding: 20px;
+  display: grid;
+  gap: 18px;
+}
+
+/* Individual note card */
+.note{
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.005)
+  );
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.note:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.7);
+}
+
+/* Note titles */
+.note h2{
+  font-size: 18px;
+  margin-top: 0;
+  font-family: var(--mono);
+}
+
+/* Note text */
+.note p{
+  color: #cfeee3;
+  line-height: 1.6;
+}
+
+/* Timestamp */
+.note time{
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+/* Profile banner (About section) */
+.profile-banner{
+  max-width: 900px;
+  margin: 0 auto 20px auto;
+}
+
+.profile-banner ul{
+  padding-left: 20px;
+  margin: 10px 0 0 0;
+}
+
+.profile-banner li{
+  margin: 6px 0;
+}
