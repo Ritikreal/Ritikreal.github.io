@@ -820,3 +820,40 @@ kbd{font:10px var(--mono);color:var(--text);padding:3px 5px;border:1px solid rgb
   .joke-card{order:11}
   .footer{order:12}
 }
+
+
+/* Desktop layout stability fix — prevent the growing dashboard from squeezing cards into each other */
+@media (min-width:901px){
+  .content{
+    height:100%;
+    min-height:0;
+    overflow-y:auto;
+    overflow-x:hidden;
+    align-items:stretch;
+    padding-right:2px;
+  }
+
+  .hero,
+  .workspace-strip,
+  .panel-area,
+  .live-status,
+  .activity-card,
+  .now-card,
+  .milestones-card,
+  .shortcuts-card,
+  .fact-card,
+  .joke-card,
+  .footer{
+    flex:0 0 auto;
+  }
+
+  .panel-area{
+    overflow:visible;
+    min-height:0;
+  }
+
+  .panel{
+    max-height:none;
+    overflow:visible;
+  }
+}
