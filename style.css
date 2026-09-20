@@ -857,3 +857,30 @@ kbd{font:10px var(--mono);color:var(--text);padding:3px 5px;border:1px solid rgb
     overflow:visible;
   }
 }
+
+
+/* Desktop dashboard spacing — keep GitHub activity and Current focus visually separated */
+@media (min-width:901px){
+  .activity-card{
+    position:relative;
+    z-index:2;
+    min-height:112px;
+    overflow:visible;
+  }
+
+  .now-card{
+    position:relative;
+    z-index:1;
+    min-height:112px;
+    margin-top:0;
+  }
+
+  .activity-list{
+    min-height:38px;
+  }
+
+  .activity-item{
+    min-height:36px;
+    overflow:hidden;
+  }
+}
