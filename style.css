@@ -930,3 +930,72 @@ kbd{font:10px var(--mono);color:var(--text);padding:3px 5px;border:1px solid rgb
     margin:0;
   }
 }
+
+
+/* Compact mobile pass — reduce scroll length without removing portfolio content */
+@media (max-width:520px){
+  .app{padding:6px;gap:7px}
+  .sidebar{gap:8px;padding:11px}
+  .card{padding:11px;border-radius:12px}
+
+  .topbar{gap:9px}
+  .brand .mono{font-size:12px}
+  .brand .small{font-size:10px}
+
+  .terminal{height:150px;max-height:150px;padding:8px;font-size:11px;line-height:1.45}
+  .terminal .welcome{margin-bottom:5px}
+  .output p{margin:4px 0}
+
+  .chips{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+  .chip{padding:7px 4px;font-size:9px;line-height:1.15}
+  .promptBar{padding:4px;gap:5px}
+  .cmdInput{font-size:12px;padding:5px}
+  .promptBar .btn{padding:6px 8px;font-size:10px}
+
+  .hero{gap:9px}
+  .hero .avatar{width:56px;height:56px;font-size:19px;border-radius:10px}
+  .hero .center h1{font-size:21px}
+  .hero .center p{font-size:10px;line-height:1.35;margin:4px 0}
+  .meta{margin-top:6px;gap:5px}
+  .tag{font-size:9px;padding:4px 7px}
+  .hero .right{gap:5px}
+  .hero .right .btn{padding:7px 8px;font-size:10px;flex:1 1 120px}
+
+  .workspace-strip{gap:7px}
+  .workspace-block{padding:10px;gap:8px}
+  .workspace-label{font-size:9px}
+  .workspace-block strong{font-size:11px}
+  .workspace-sub{font-size:9px;line-height:1.35}
+
+  .panel-area{padding:11px}
+  .panel h2{font-size:18px;margin-bottom:5px}
+  .panel p,.panel li{font-size:10px;line-height:1.4}
+  .projectsGrid{gap:7px}
+  .project{padding:9px}
+  .project h4{font-size:13px;margin:4px 0}
+  .project p{font-size:10px;line-height:1.4}
+  .project-tags{gap:4px}
+  .project-tags span{font-size:8px;padding:3px 5px}
+
+  .live-status,.activity-card,.now-card,.milestones-card,.shortcuts-card,.fact-card,.joke-card,.footer{gap:8px}
+  .live-status-grid,.now-grid{gap:5px}
+  .live-status-grid>div,.now-grid>div{padding:7px}
+  .live-status-grid strong,.now-grid strong{font-size:9px;line-height:1.3}
+  .activity-list{gap:5px}
+  .activity-item{padding:7px 8px;gap:7px;min-height:0}
+
+  .milestone-list{gap:4px}
+  .milestone-list>div{padding:7px 8px;gap:2px}
+  .milestone-list strong{font-size:10px}
+  .milestone-list time{font-size:8px}
+  .milestone-list span{display:none}
+
+  .shortcut-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+  .shortcut-grid>div{justify-content:center;flex-direction:column;padding:7px 3px;gap:3px;text-align:center}
+  .shortcut-grid span{font-size:8px}
+  kbd{font-size:8px;padding:2px 4px}
+
+  .joke-text{font-size:10px;line-height:1.4}
+  .footer{padding:10px}
+  .footer-chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+}
