@@ -416,9 +416,54 @@ window.addEventListener("DOMContentLoaded", () => {
     randomJokeEl.textContent=randomJokes[index];
   }
 
+
+  const githubStatusEl=document.getElementById("githubStatus");
+  const githubActivityEl=document.getElementById("githubActivity");
+  const localTimeEl=document.getElementById("localTime");
+
+  function updateLocalTime(){
+    if(!localTimeEl)return;
+    localTimeEl.textContent=new Intl.DateTimeFormat("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false,timeZone:"Asia/Kolkata"}).format(new Date());
+  }
+  updateLocalTime();
+  setInterval(updateLocalTime,1000);
+
+  async function loadGitHubActivity(){
+    if(!githubActivityEl)return;
+    try{
+      const res=await fetch("https://api.github.com/users/Ritikreal/events/public?per_page=6",{headers:{Accept:"application/vnd.github+json"}});
+      if(!res.ok)throw new Error("GitHub unavailable");
+      const events=await res.json();
+      githubStatusEl.textContent="ONLINE";
+      const useful=events.filter(e=>["PushEvent","CreateEvent","IssuesEvent","PullRequestEvent"].includes(e.type)).slice(0,4);
+      if(!useful.length){
+        githubActivityEl.innerHTML='<div class="activity-item"><span class="activity-dot"></span><span class="muted">No recent public activity found.</span></div>';
+        return;
+      }
+      githubActivityEl.innerHTML="";
+      useful.forEach(e=>{
+        const row=document.createElement("div");
+        row.className="activity-item";
+        const repoName=e.repo?.name||"GitHub";
+        let action="Activity";
+        if(e.type==="PushEvent")action=(e.payload?.commits?.length||1)+" commit"+((e.payload?.commits?.length||1)>1?"s":"")+" pushed";
+        if(e.type==="CreateEvent")action="Created "+(e.payload?.ref_type||"repository");
+        if(e.type==="IssuesEvent")action=(e.payload?.action||"updated")+" issue";
+        if(e.type==="PullRequestEvent")action=(e.payload?.action||"updated")+" pull request";
+        const when=new Date(e.created_at).toLocaleDateString("en-IN",{day:"2-digit",month:"short"});
+        row.innerHTML='<span class="activity-dot"></span><strong>'+escapeHtml(repoName)+'</strong><span class="muted small">'+escapeHtml(action)+' · '+escapeHtml(when)+'</span>';
+        githubActivityEl.appendChild(row);
+      });
+    }catch{
+      if(githubStatusEl)githubStatusEl.textContent="UNAVAILABLE";
+      githubActivityEl.innerHTML='<div class="activity-item"><span class="activity-dot"></span><span class="muted">GitHub activity could not be loaded right now.</span></div>';
+    }
+  }
+  loadGitHubActivity();
+
   const panels=[...document.querySelectorAll(".panel")], hero=document.getElementById("panel-hero");
   const panelMap={about:"about",projects:"projects",resume:"resume",notes:"notes",tools:"tools",lab:"lab",contact:"contact",setup:"setup",buildlog:"buildlog",learning:"learning",personal:"personal",hero:null};
-  const commands=["help","about","projects","project","resume","notes","note","tools","lab","contact","setup","buildlog","learning","personal","status","now","stack","timeline","hardware","neofetch","clear","open"];
+  const commands=["help","about","projects","project","resume","notes","note","tools","lab","contact","setup","buildlog","learning","personal","status","now","stack","timeline","hardware","neofetch","whoami","uptime","coffee","fortune","matrix","linux","minecraft","sudo","ls","shortcuts","milestones","clear","open"];
   const history=[]; let historyIndex=0;
   function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
   function appendLine(t="",cls=""){const p=document.createElement("p");p.className=cls;p.textContent=t;outputEl.appendChild(p);outputEl.scrollTop=outputEl.scrollHeight;}
@@ -453,7 +498,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
   document.querySelectorAll(".lab-card").forEach(x=>x.onclick=()=>renderLab(x.dataset.lab));
   document.querySelectorAll("[data-cmd]").forEach(x=>x.addEventListener("click",()=>execute(x.dataset.cmd)));
-  const responses={help:"Available commands:\n  help · about · projects · resume · notes · tools · lab · contact\n  setup · buildlog · learning · personal\n  now · stack · timeline · hardware · neofetch · clear\n  open <page> · Tab autocomplete · ↑↓ command history · Ctrl+K focus"};
+  const responses={help:"Available commands:\n  help · about · projects · resume · notes · tools · lab · contact\n  setup · buildlog · learning · personal\n  now · stack · timeline · hardware · neofetch\n  whoami · uptime · coffee · fortune · matrix · linux · minecraft · sudo · ls\n  shortcuts · milestones · clear · open <page>\n  Tab autocomplete · ↑↓ command history · Ctrl+K focus"};
   async function execute(raw){
     raw=(raw||"").trim();if(!raw)return;
     const echo=document.createElement("p");echo.innerHTML='<span class="cmd inline">➜</span> <span class="mono">'+escapeHtml(raw)+"</span>";outputEl.appendChild(echo);
@@ -478,6 +523,17 @@ if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V
     if(cmd==="timeline"){showPanel("projects");await typeLine("Embedded systems → IoT → Linux → software → experimental engineering");return;}
     if(cmd==="hardware"){showPanel("projects");await typeLine("Hardware desk: ESP32 · STM32 · Raspberry Pi · sensors · LoRaWAN");return;}
     if(cmd==="neofetch"){await typeLine("rithwik@portfolio","8","cmd");["OS        Arch Linux","Focus     ECE × Embedded × Software","Shell     fish","Projects  GYMPRO · Neko.Buddy · Vivian · HomeCore V2 · MediKiosk+"].forEach(x=>appendLine(x,"muted"));return;}
+    if(cmd==="whoami"){await typeLine("rithwik — ECE student, builder, Linux enjoyer, petrol head.");return;}
+    if(cmd==="uptime"){await typeLine("portfolio uptime: always on · human uptime: depends on caffeine.");return;}
+    if(cmd==="coffee"){await typeLine("coffee.service: active (running) ☕");return;}
+    if(cmd==="fortune"){const f=["Build it. Break it. Learn why.","The bug is probably one line above.","Check the logs before blaming the hardware.","If it works, document it before touching it."];await typeLine(f[Math.floor(Math.random()*f.length)]);return;}
+    if(cmd==="matrix"){await typeLine("There is no matrix. There is only CSS.");return;}
+    if(cmd==="linux"){await typeLine("Linux mode: enabled. Arch + Hyprland + fish + Kitty.");return;}
+    if(cmd==="minecraft"){await typeLine("Minecraft mode: enabled. Inventory still unorganized.");return;}
+    if(cmd==="sudo"){await typeLine("Nice try. This terminal has no root privileges.");return;}
+    if(cmd==="ls"){await typeLine("about  projects  setup  buildlog  learning  personal  notes  lab  resume");return;}
+    if(cmd==="shortcuts"){await typeLine("↑↓ history · Tab autocomplete · Ctrl+K focus · Enter run");return;}
+    if(cmd==="milestones"){showPanel("buildlog");await typeLine("Milestones: DSATM · Soil Health Network · HomeCore V2 · MediKiosk+ · University Clubs");return;}
     if(responses[cmd]){await typeLine(responses[cmd],6,"muted");return;}
     if(cmd==="notes"){window.location.href="notes.html";return;}if(panelMap[cmd]!==undefined){showPanel(cmd);await typeLine("Opened "+cmd+" panel.",8,"muted");return;}
     appendLine("Command not found: "+cmd,"muted");
