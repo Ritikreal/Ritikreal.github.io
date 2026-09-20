@@ -649,3 +649,35 @@ body.notes-page{
     width:100%;
   }
 }
+
+
+/* Portfolio content additions */
+.project-progress{display:flex;justify-content:space-between;gap:10px;margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,.035);font:9px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.project details{margin-top:9px}
+.project summary{cursor:pointer;color:var(--accent);font:10px var(--mono);list-style:none}
+.project summary::-webkit-details-marker{display:none}
+.project summary:before{content:"+ ";color:var(--accent-2)}
+.project details[open] summary:before{content:"− "}
+.project details p{margin:8px 0 0;color:var(--muted);font-size:11px;line-height:1.55}
+
+.setupGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.setupGrid>div{padding:13px;border:1px solid rgba(255,255,255,.04);border-radius:10px;background:rgba(255,255,255,.008)}
+.setupGrid strong{display:block;margin-top:5px;font:12px var(--mono);color:var(--text);line-height:1.5}
+
+.buildlog{display:grid;gap:8px}
+.log-entry{display:grid;grid-template-columns:120px minmax(130px,.7fr) minmax(180px,1fr);gap:12px;align-items:center;padding:12px;border:1px solid rgba(255,255,255,.04);border-radius:10px;background:rgba(255,255,255,.008);text-decoration:none;color:var(--text);transition:.16s}
+.log-entry:hover{transform:translateX(2px);border-color:rgba(0,255,159,.15)}
+.log-entry time{font:10px var(--mono);color:var(--muted)}
+.log-entry strong{font:12px var(--mono)}
+.log-entry span{font-size:11px;color:var(--muted)}
+
+.personalGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.personalGrid>div{display:grid;gap:5px;padding:13px;border:1px solid rgba(255,255,255,.04);border-radius:10px}
+.personalGrid strong{font:12px var(--mono)}
+.personalGrid span{font-size:11px;color:var(--muted);line-height:1.5}
+
+@media(max-width:700px){
+  .setupGrid,.personalGrid{grid-template-columns:1fr}
+  .log-entry{grid-template-columns:1fr;gap:4px}
+  .log-entry strong{font-size:11px}
+}
