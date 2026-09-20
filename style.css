@@ -163,8 +163,8 @@ body{
   body{overflow-x:hidden;overflow-y:auto}
   .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;height:auto;min-height:100vh;width:100%;max-width:100%;padding:12px;gap:12px}
   .sidebar,.content,.card,.panel-area,.panel,.hero,.workspace-strip,.workspace-block,.project,.footer{min-width:0;max-width:100%}
-  .sidebar{order:2;min-height:0;width:100%;overflow:hidden}
-  .content{order:1;height:auto;min-height:0;width:100%;overflow:visible}
+  .sidebar{order:1;min-height:0;width:100%;overflow:hidden}
+  .content{order:2;height:auto;min-height:0;width:100%;overflow:visible}
   .hero{align-items:flex-start;flex-wrap:wrap;justify-content:flex-start}
   .hero .left{flex:0 0 auto}
   .hero .center{min-width:0;flex:1 1 220px}
