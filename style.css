@@ -681,3 +681,69 @@ body.notes-page{
   .log-entry{grid-template-columns:1fr;gap:4px}
   .log-entry strong{font-size:11px}
 }
+
+
+/* Smooth motion polish — keeps the existing visual design intact */
+@media (prefers-reduced-motion: no-preference){
+  .card,.project,.workspace-block,.chip,.btn,.lab-card,.log-entry,.tech,.tag,.project-link,.link{
+    transition:
+      transform .28s cubic-bezier(.22,1,.36,1),
+      opacity .28s ease,
+      border-color .28s ease,
+      box-shadow .28s ease,
+      background-color .28s ease;
+  }
+
+  .card:not(.active),.panel[hidden]{}
+  .project:hover{transform:translateY(-3px)}
+  .workspace-block:hover{transform:translateY(-2px)}
+  .lab-card:hover{transform:translateY(-3px)}
+  .chip:hover{transform:translateY(-1px)}
+  .btn:hover{transform:translateY(-1px)}
+  .project-link:hover,.link:hover{opacity:.82}
+
+  .status-dot{
+    animation:statusPulse 2.4s ease-in-out infinite;
+  }
+
+  .project details[open]{
+    animation:detailsIn .24s cubic-bezier(.22,1,.36,1);
+  }
+
+  .project details[open] p{
+    animation:contentFade .3s ease both;
+  }
+
+  @keyframes statusPulse{
+    0%,100%{opacity:.72;box-shadow:0 0 8px rgba(0,255,159,.25)}
+    50%{opacity:1;box-shadow:0 0 16px rgba(0,255,159,.58)}
+  }
+
+  @keyframes detailsIn{
+    from{opacity:.35;transform:translateY(-3px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  @keyframes contentFade{
+    from{opacity:0;transform:translateY(4px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  .panel.active-enter{
+    animation:panelIn .34s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  @keyframes panelIn{
+    from{opacity:.55;transform:translateY(7px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto !important;
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+}
