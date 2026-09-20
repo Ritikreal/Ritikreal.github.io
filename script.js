@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const outputEl=document.getElementById("output"), cmdInput=document.getElementById("cmdInput"), promptForm=document.getElementById("promptForm");
   const panels=[...document.querySelectorAll(".panel")], hero=document.getElementById("panel-hero");
   const panelMap={about:"about",projects:"projects",resume:"resume",notes:"notes",tools:"tools",lab:"lab",contact:"contact",setup:"setup",buildlog:"buildlog",learning:"learning",personal:"personal",hero:null};
-  const commands=["help","about","projects","project","resume","notes","note","tools","lab","contact","setup","buildlog","learning","personal","now","stack","timeline","hardware","neofetch","clear","open"];
+  const commands=["help","about","projects","project","resume","notes","note","tools","lab","contact","setup","buildlog","learning","personal","status","now","stack","timeline","hardware","neofetch","clear","open"];
   const history=[]; let historyIndex=0;
   function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
   function appendLine(t="",cls=""){const p=document.createElement("p");p.className=cls;p.textContent=t;outputEl.appendChild(p);outputEl.scrollTop=outputEl.scrollHeight;}
@@ -35,7 +35,18 @@ window.addEventListener("DOMContentLoaded", () => {
     if(cmd==="clear"){outputEl.innerHTML="";return;}
     if(cmd==="open"){if(arg==="notes"||arg==="note"){window.location.href="notes.html";return;}if(panelMap[arg]!==undefined){showPanel(arg);await typeLine("Opening "+arg+" panel...");}else appendLine("Try: open projects · open lab · open contact","muted");return;}
     if(cmd==="lab"){showPanel("lab");await typeLine("Opening ECE Lab...");return;}
-    if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V2 · Vivian · GYMPRO");await typeLine("University: Under 25 Club · Makerspace Club");return;}
+    if(cmd==="status"){
+  showPanel("projects");
+  await typeLine("BUILD STATUS","8","cmd");
+  appendLine("HomeCore V2     ACTIVE BUILD · more to build","muted");
+  appendLine("Vivian          ACTIVE BUILD · more to build","muted");
+  appendLine("GYMPRO          ACTIVE BUILD · more to build","muted");
+  appendLine("MediKiosk+      READY · open to changes","muted");
+  appendLine("Soil Network    COMPLETED · ready","muted");
+  appendLine("Neko.Buddy      ON HOLD · paused","muted");
+  return;
+}
+if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V2 · Vivian · GYMPRO");await typeLine("University: Under 25 Club · Makerspace Club");return;}
     if(cmd==="stack"){showPanel("tools");await typeLine("ECE stack: ESP32 · STM32 · C/C++ · Rust · TypeScript · WebAssembly · Linux");return;}
     if(cmd==="timeline"){showPanel("projects");await typeLine("Embedded systems → IoT → Linux → software → experimental engineering");return;}
     if(cmd==="hardware"){showPanel("projects");await typeLine("Hardware desk: ESP32 · STM32 · Raspberry Pi · sensors · LoRaWAN");return;}
