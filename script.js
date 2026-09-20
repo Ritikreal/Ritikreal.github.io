@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const outputEl=document.getElementById("output"), cmdInput=document.getElementById("cmdInput"), promptForm=document.getElementById("promptForm");
   const panels=[...document.querySelectorAll(".panel")], hero=document.getElementById("panel-hero");
   const panelMap={about:"about",projects:"projects",resume:"resume",notes:"notes",tools:"tools",lab:"lab",contact:"contact",hero:null};
-  const commands=["help","about","projects","resume","notes","tools","lab","contact","now","stack","timeline","hardware","neofetch","clear","open"];
+  const commands=["help","about","projects","project","resume","notes","note","tools","lab","contact","now","stack","timeline","hardware","neofetch","clear","open"];
   const history=[]; let historyIndex=0;
   function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
   function appendLine(t="",cls=""){const p=document.createElement("p");p.className=cls;p.textContent=t;outputEl.appendChild(p);outputEl.scrollTop=outputEl.scrollHeight;}
@@ -22,7 +22,8 @@ window.addEventListener("DOMContentLoaded", () => {
   async function execute(raw){
     raw=(raw||"").trim();if(!raw)return;
     const echo=document.createElement("p");echo.innerHTML='<span class="cmd inline">➜</span> <span class="mono">'+escapeHtml(raw)+"</span>";outputEl.appendChild(echo);
-    const parts=raw.split(/\s+/),cmd=parts[0].toLowerCase(),arg=parts.slice(1).join(" ").toLowerCase();
+    const parts=raw.split(/\s+/);let cmd=parts[0].toLowerCase(),arg=parts.slice(1).join(" ").toLowerCase();
+    const aliases={project:"projects",note:"notes"};cmd=aliases[cmd]||cmd;
     if(cmd==="clear"){outputEl.innerHTML="";return;}
     if(cmd==="open"){if(panelMap[arg]!==undefined){showPanel(arg);await typeLine("Opening "+arg+" panel...");}else appendLine("Try: open projects · open lab · open contact","muted");return;}
     if(cmd==="lab"){showPanel("lab");await typeLine("Opening ECE Lab...");return;}
