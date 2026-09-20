@@ -32,7 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if(cmd==="hardware"){showPanel("projects");await typeLine("Hardware desk: ESP32 · STM32 · Raspberry Pi · sensors · LoRaWAN");return;}
     if(cmd==="neofetch"){await typeLine("rithwik@portfolio","8","cmd");["OS        Arch Linux","Focus     ECE × Embedded × Software","Shell     fish","Projects  GYMPRO · Neko.Buddy · AyurLife"].forEach(x=>appendLine(x,"muted"));return;}
     if(responses[cmd]){await typeLine(responses[cmd],6,"muted");return;}
-    if(panelMap[cmd]!==undefined){showPanel(cmd);await typeLine("Opened "+cmd+" panel.","8","muted");return;}
+    if(panelMap[cmd]!==undefined){showPanel(cmd);await typeLine("Opened "+cmd+" panel.",8,"muted");return;}
     appendLine("Command not found: "+cmd,"muted");
   }
   promptForm.addEventListener("submit",e=>{e.preventDefault();if(cmdInput.value.trim())history.push(cmdInput.value.trim());historyIndex=history.length;execute(cmdInput.value);cmdInput.value="";});
