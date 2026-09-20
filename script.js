@@ -8,7 +8,15 @@ window.addEventListener("DOMContentLoaded", () => {
   function appendLine(t="",cls=""){const p=document.createElement("p");p.className=cls;p.textContent=t;outputEl.appendChild(p);outputEl.scrollTop=outputEl.scrollHeight;}
   async function typeLine(t,speed=8,cls=""){const p=document.createElement("p");p.className=cls;outputEl.appendChild(p);for(let i=0;i<=t.length;i++){p.textContent=t.slice(0,i);await new Promise(r=>setTimeout(r,speed));}outputEl.scrollTop=outputEl.scrollHeight;}
   function hideAll(){panels.forEach(p=>p.hidden=true);hero?.classList.remove("active");}
-  function showPanel(id){hideAll();if(!id||id==="hero"){hero?.classList.add("active");return;}document.getElementById(id)?.removeAttribute("hidden");}
+  function showPanel(id){
+    hideAll();
+    if(!id||id==="hero"){hero?.classList.add("active");return;}
+    const panel=document.getElementById(id);
+    panel?.removeAttribute("hidden");
+    if(panel&&window.matchMedia("(max-width:900px)").matches){
+      requestAnimationFrame(()=>panel.scrollIntoView({behavior:"smooth",block:"start"}));
+    }
+  }
   function renderLab(kind){
     const c=document.getElementById("lab-console"); if(!c)return;
     if(kind==="ohm"){c.innerHTML='<div class="lab-tool"><strong>OHM\'S LAW</strong><label>Voltage <input id="lv" type="number" value="5" step=".1"></label><label>Resistance <input id="lr" type="number" value="220"></label><button class="btn" id="lo">Calculate current</button><div id="lres" class="lab-result">I = 22.73 mA</div></div>';document.getElementById("lo").onclick=()=>{const v=+document.getElementById("lv").value,r=+document.getElementById("lr").value;document.getElementById("lres").textContent=r>0?"I = "+(v/r*1000).toFixed(2)+" mA":"R must be greater than 0";};}
