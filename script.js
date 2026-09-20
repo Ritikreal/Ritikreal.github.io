@@ -1,6 +1,39 @@
 window.addEventListener("DOMContentLoaded", () => {
   const outputEl=document.getElementById("output"), cmdInput=document.getElementById("cmdInput"), promptForm=document.getElementById("promptForm");
   const randomJokeEl=document.getElementById("randomJoke");
+  const engineeringFactEl=document.getElementById("engineeringFact");
+  const engineeringFacts=[
+    "ESP32 boards combine Wi-Fi and Bluetooth in one microcontroller platform.",
+    "I²C uses two signal lines: SDA for data and SCL for the clock.",
+    "SPI commonly uses separate clock, data-in, data-out and chip-select signals.",
+    "A pull-up resistor lets an open-drain or open-collector signal return to logic HIGH.",
+    "A capacitor's voltage cannot change instantaneously in an ideal RC circuit.",
+    "UART communication does not require a shared clock line.",
+    "LoRa is designed for long-range, low-power wireless communication.",
+    "MQTT uses a publish/subscribe model instead of direct device-to-device messaging.",
+    "A watchdog timer can reset a microcontroller when software stops responding.",
+    "PWM can control average power by changing the duty cycle of a digital signal.",
+    "ADC resolution determines how many discrete levels an analog input can represent.",
+    "GPIO pins can often be configured as digital inputs or outputs.",
+    "Debouncing prevents a mechanical button from being interpreted as many presses.",
+    "STM32 microcontrollers are built around ARM Cortex-M cores across many families.",
+    "A voltage divider converts an input voltage into a predictable fraction of it.",
+    "Ohm's law relates voltage, current and resistance: V = I × R.",
+    "Ground provides the reference point for voltage measurements in a circuit.",
+    "LoRaWAN adds a network layer around LoRa radio links for low-power IoT devices.",
+    "Git tracks changes to files so project history can be inspected and recovered.",
+    "Linux permissions commonly distinguish the file owner, group and other users.",
+    "A process is a running instance of a program with its own execution context.",
+    "DNS translates human-readable domain names into IP addresses.",
+    "TCP provides ordered, reliable delivery of data between endpoints.",
+    "UDP trades delivery guarantees for lower protocol overhead and simpler communication.",
+    "A PCB ground plane can provide a low-impedance return path and help with signal integrity.",
+    "KiCad can be used for schematic capture and PCB layout in the same project.",
+    "PlatformIO can manage embedded project environments, libraries and builds.",
+    "A thermistor changes resistance with temperature and can be used for temperature sensing.",
+    "A Hall-effect sensor can detect magnetic fields without mechanical contact.",
+    "A relay provides electrically controlled switching between circuits."
+  ];
   const linuxJokes=[
   "Linux rule #1: if it works, don't update it. Linux rule #2: update it anyway. and then the package manager asked for my trust.",
   "Linux rule #1: if it works, don't update it. Linux rule #2: update it anyway. which is how a quick fix became a weekend project.",
@@ -405,6 +438,11 @@ window.addEventListener("DOMContentLoaded", () => {
   "Minecraft logic: punch a tree, build a computer. Fair enough. and then it became a redstone project.",
   "Minecraft logic: punch a tree, build a computer. Fair enough. so I went back underground."
 ];
+  if(engineeringFactEl){
+    const factIndex=Math.floor(Math.random()*engineeringFacts.length);
+    engineeringFactEl.textContent=engineeringFacts[factIndex];
+  }
+
   const randomJokes=[...linuxJokes,...minecraftJokes];
   if(randomJokeEl){
     const previous=Number(sessionStorage.getItem("portfolioJokeIndex"));
