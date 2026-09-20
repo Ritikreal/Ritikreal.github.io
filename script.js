@@ -1,5 +1,28 @@
 window.addEventListener("DOMContentLoaded", () => {
   const outputEl=document.getElementById("output"), cmdInput=document.getElementById("cmdInput"), promptForm=document.getElementById("promptForm");
+  const randomJokeEl=document.getElementById("randomJoke");
+  const randomJokes=[
+    "Linux: where \"just one more package\" becomes 47 dependencies.",
+    "I use Arch, btw. The btw is doing a lot of emotional work.",
+    "Minecraft taught me redstone. Linux taught me that electricity is optional.",
+    "Creeper: *ssssss*. Me: finally, a more reliable notification system.",
+    "Minecraft inventory: 35 stacks of dirt. Important item: nowhere to be found.",
+    "sudo: because asking nicely was apparently not enough.",
+    "Git: I can fix it. Also Git: here are 14 merge conflicts.",
+    "Minecraft night: monsters everywhere. Linux update night: same energy.",
+    "Pacman says -Syu. My laptop says: we need to talk.",
+    "I mined for diamonds for an hour and found Linux dependency errors instead.",
+    "Terminal: command not found. Me: that's okay, I'll Google it.",
+    "Creepers don't need Wi-Fi. They just need one bad decision.",
+    "Linux uptime: impressive. My sleep schedule: not so much.",
+    "Minecraft logic: three sticks and two strings make a fishing rod. Fair enough.",
+    "Nothing is truly broken until you run it with sudo.",
+    "Me: I'll build something simple. Also me: adds a terminal, dashboard and 12 side quests."
+  ];
+  if(randomJokeEl){
+    randomJokeEl.textContent=randomJokes[Math.floor(Math.random()*randomJokes.length)];
+  }
+
   const panels=[...document.querySelectorAll(".panel")], hero=document.getElementById("panel-hero");
   const panelMap={about:"about",projects:"projects",resume:"resume",notes:"notes",tools:"tools",lab:"lab",contact:"contact",setup:"setup",buildlog:"buildlog",learning:"learning",personal:"personal",hero:null};
   const commands=["help","about","projects","project","resume","notes","note","tools","lab","contact","setup","buildlog","learning","personal","status","now","stack","timeline","hardware","neofetch","clear","open"];
