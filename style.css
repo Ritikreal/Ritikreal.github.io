@@ -204,6 +204,25 @@ body{
   .lab-card{min-width:0}
 }
 
+/* mobile navigation + panel visibility fixes */
+@media (max-width:900px){
+  .app{display:flex;flex-direction:column;align-items:stretch}
+  .sidebar{order:1;height:auto!important;overflow:visible!important}
+  .content{order:2}
+  .chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;max-height:none;overflow:visible}
+  .chip{min-width:0;white-space:normal}
+  .terminal{height:240px;max-height:240px}
+  .promptForm{width:100%}
+  .promptBar{width:100%}
+  .panel-area{width:100%;overflow:visible}
+  .panel{width:100%;max-width:100%;overflow:visible}
+}
+@media (max-width:520px){
+  .chips{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .chip{padding:9px 7px;font-size:11px}
+  .terminal{height:210px;max-height:210px}
+}
+ 
 /* accessibility focus */
 * :focus{outline:2px dashed rgba(0,255,159,0.12);outline-offset:4px}
 
