@@ -754,7 +754,7 @@ body.notes-page{
 
 
 /* Portfolio utility additions — native to the existing AMOLED interface */
-.live-status,.activity-card,.now-card,.milestones-card,.shortcuts-card{display:grid;gap:12px}
+.live-status,.activity-card,.now-card,.milestones-card,.shortcuts-card,.fact-card{display:grid;gap:12px}
 .live-status-head,.activity-head,.now-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .live-status-head strong,.now-head h3,.activity-head h3{display:block;margin:4px 0 0;font:600 13px var(--mono)}
 .live-pill{display:flex;align-items:center;gap:7px;font:10px var(--mono);color:var(--accent);border:1px solid rgba(0,255,159,.12);border-radius:999px;padding:6px 9px}
@@ -792,3 +792,5 @@ kbd{font:10px var(--mono);color:var(--text);padding:3px 5px;border:1px solid rgb
   .activity-item small{grid-column:2}
   .shortcut-grid{gap:6px}
 }
+
+.fact-card{background:linear-gradient(135deg,rgba(0,209,255,.018),rgba(255,255,255,.006))}
