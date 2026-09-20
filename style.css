@@ -161,15 +161,25 @@ body{
 @media (max-width:900px){
   html,body{height:auto;min-height:100%}
   body{overflow-x:hidden;overflow-y:auto}
-  .app{grid-template-columns:1fr;grid-template-rows:auto auto;height:auto;min-height:100vh;padding:12px;gap:12px}
-  .sidebar{order:2;min-height:0}
-  .content{order:1;height:auto;min-height:0;overflow:visible}
-  .hero{align-items:flex-start;flex-wrap:wrap}
-  .hero .right{display:flex;flex-wrap:wrap;gap:8px}
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;height:auto;min-height:100vh;width:100%;max-width:100%;padding:12px;gap:12px}
+  .sidebar,.content,.card,.panel-area,.panel,.hero,.workspace-strip,.workspace-block,.project,.footer{min-width:0;max-width:100%}
+  .sidebar{order:2;min-height:0;width:100%;overflow:hidden}
+  .content{order:1;height:auto;min-height:0;width:100%;overflow:visible}
+  .hero{align-items:flex-start;flex-wrap:wrap;justify-content:flex-start}
+  .hero .left{flex:0 0 auto}
+  .hero .center{min-width:0;flex:1 1 220px}
+  .hero .right{display:flex;flex:1 1 100%;width:100%;min-width:0;flex-wrap:wrap;gap:8px}
+  .hero .right .btn{flex:1 1 180px;min-width:0;white-space:normal}
   .meta{flex-wrap:wrap}
-  .terminal{height:240px}
+  .terminal{height:240px;min-width:0;max-width:100%}
   .panel-area{overflow:visible}
   .panel{overflow:visible;max-height:none}
+  .workspace-strip{grid-template-columns:minmax(0,1fr)}
+  .workspace-block{overflow:hidden}
+  .projectsGrid{grid-template-columns:minmax(0,1fr)}
+  .project-top{flex-wrap:wrap}
+  .project p,.project h4,.panel p,.panel li,.workspace-block strong,.workspace-sub{overflow-wrap:anywhere;word-break:break-word}
+  .techGrid,.chips,.footer-chips{min-width:0;max-width:100%}
 }
 
 @media (max-width:520px){
@@ -177,14 +187,21 @@ body{
   .card{padding:14px}
   .hero{gap:12px}
   .hero .avatar{width:64px;height:64px;font-size:22px}
-  .hero .center{min-width:0;flex-basis:calc(100% - 76px)}
-  .hero .right{width:100%}
-  .hero .right .btn{flex:1;min-width:0}
-  .promptBar{min-width:0}
-  .cmdInput{min-width:0}
+  .hero .center{flex:1 1 calc(100% - 76px);min-width:0}
+  .hero .center h1{font-size:clamp(20px,6vw,28px);line-height:1.15;overflow-wrap:anywhere}
+  .hero .center p{overflow-wrap:anywhere}
+  .hero .right{width:100%;flex-basis:100%}
+  .hero .right .btn{flex:1 1 140px;min-width:0}
+  .promptBar{min-width:0;max-width:100%;overflow:hidden}
+  .promptIcon{padding-left:3px}
+  .cmdInput{min-width:0;width:100%}
+  .promptBar .btn{flex:0 0 auto}
   .terminal{height:220px}
-  .projectsGrid{grid-template-columns:1fr}
-  .workspace-strip{grid-template-columns:1fr}
+  .workspace-block{gap:9px}
+  .workspace-block strong{font-size:12px}
+  .workspace-sub{font-size:10px}
+  .lab-grid{grid-template-columns:1fr}
+  .lab-card{min-width:0}
 }
 
 /* accessibility focus */
