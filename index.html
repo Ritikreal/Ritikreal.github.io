@@ -23,7 +23,7 @@
         </div>
         <div class="brand">
           <div class="mono">rithwik@portfolio</div>
-          <div class="muted small">terminal — amoled · hybrid UI</div>
+          <div class="muted small">terminal — amoled · ece × software</div>
         </div>
       </div>
 
@@ -63,7 +63,7 @@
           <h1>Rithwik V Kumar</h1>
           <p class="muted">Electronics Engineer • Embedded Systems Developer • IoT Innovator • Petrol Head</p>
           <div class="meta">
-            <span class="tag">Embedded</span>
+            <span class="tag">ECE</span><span class="tag">Embedded</span>
             <span class="tag">IoT</span>
             <span class="tag">Open Source</span>
             <span class="tag">Arch Linux</span>
@@ -75,7 +75,13 @@
         </div>
       </section>
 
-      <section id="panel-area" class="card panel-area">
+      <section id="workspace" class="workspace-strip">
+  <div class="workspace-block"><span class="status-dot"></span><div><span class="workspace-label">CURRENTLY BUILDING</span><strong>GYMPRO</strong><span class="workspace-sub">Neko.Buddy · AyurLife</span></div></div>
+  <div class="workspace-block"><span class="lab-mark">⌁</span><div><span class="workspace-label">UNIVERSITY</span><strong>Under 25 Club · Makerspace Club</strong><span class="workspace-sub">ECE • hardware × software</span></div></div>
+  <button class="lab-launch" data-cmd="lab">open ece lab ↗</button>
+</section>
+
+<section id="panel-area" class="card panel-area">
        <div class="panel" id="about" hidden>
   <h2>About</h2>
 
@@ -103,21 +109,17 @@
 </div>
 
         <div class="panel" id="projects" hidden>
-          <h2>Projects</h2>
-          <div class="projectsGrid">
-            <article class="project ongoing">
-              <h4>Soil Health Sensor Network <span class="tag ongoing-tag">Ongoing</span></h4>
-              <p>LoRaWAN-enabled ESP32 sensor nodes for real-time soil parameter monitoring, designed for low-power and wide-area coverage. 
-              Includes modular firmware for calibration and OTA updates.</p>
-            </article>
-            <article class="project">
-              <h4>Hybrid Terminal Portfolio</h4>
-              <p>Interactive AMOLED-themed hybrid terminal UI portfolio — the one you’re using right now.</p>
-            </article>
-          </div>
-        </div>
+  <h2>Projects</h2>
+  <p class="muted">Selected builds and experiments across hardware, Linux and software.</p>
+  <div class="projectsGrid">
+    <article class="project featured-project"><div class="project-top"><span class="project-kicker">ACTIVE BUILD</span><a class="project-link" href="https://github.com/Ritikreal/GYMPRO" target="_blank" rel="noreferrer">GitHub ↗</a></div><h4>GYMPRO</h4><p>Daily-use workout tracking system with logging, history, progress, PRs and local-first data.</p><div class="project-tags"><span>JavaScript</span><span>Chart.js</span><span>GSAP</span></div></article>
+    <article class="project"><div class="project-top"><span class="project-kicker">EXPERIMENT</span><a class="project-link" href="https://github.com/Ritikreal/Neko.Buddy" target="_blank" rel="noreferrer">GitHub ↗</a></div><h4>Neko.Buddy</h4><p>A Linux desktop companion experiment exploring native-feeling desktop interaction on Wayland.</p><div class="project-tags"><span>Rust</span><span>Tauri</span><span>Linux</span></div></article>
+    <article class="project"><div class="project-top"><span class="project-kicker">PROJECT</span></div><h4>AyurLife</h4><p>Healthcare-focused project exploring practical digital experiences for real-world use.</p><div class="project-tags"><span>Web</span><span>Healthcare</span></div></article>
+    <article class="project ongoing"><div class="project-top"><span class="project-kicker">ONGOING</span></div><h4>Soil Health Sensor Network <span class="tag ongoing-tag">Ongoing</span></h4><p>LoRaWAN-enabled ESP32 sensor nodes for real-time soil parameter monitoring, with modular firmware for calibration and OTA updates.</p><div class="project-tags"><span>ESP32</span><span>LoRaWAN</span><span>Embedded</span></div></article>
+  </div>
+</div>
 
-        <div class="panel" id="resume" hidden>
+<div class="panel" id="resume" hidden>
           <h2>Resume</h2>
           <p class="muted">Electronics Engineer — Embedded Systems & IoT</p>
           <ul>
@@ -147,7 +149,7 @@
     <div class="tech">MQTT</div>
     <div class="tech">Node-RED</div>
     <div class="tech">Python</div>
-    <div class="tech">C / C++</div>
+    <div class="tech">C / C++</div><div class="tech newer">Rust</div><div class="tech newer">TypeScript</div><div class="tech newer">WebAssembly</div><div class="tech newer">WebGL / Canvas</div>
   </div>
   <p class="muted small" style="margin-top:10px;">
     ⚙️ Hardware & IoT stack used across projects — includes LoRaWAN modules (RAK), soil NPK & environmental sensors,
@@ -156,10 +158,22 @@
 </div>
 
 
-        <div class="panel" id="contact" hidden>
+        <div class="panel" id="lab" hidden>
+  <div class="lab-header"><div><span class="workspace-label">INTERACTIVE</span><h2>ECE Lab</h2></div><span class="lab-badge">hardware × code</span></div>
+  <p class="muted">Small engineering toys built directly into the portfolio.</p>
+  <div class="lab-grid">
+    <button class="lab-card" data-lab="ohm"><span>Ω</span><strong>Ohm's Law</strong><small>V = I × R</small></button>
+    <button class="lab-card" data-lab="binary"><span>01</span><strong>Binary Lab</strong><small>binary ↔ decimal ↔ hex</small></button>
+    <button class="lab-card" data-lab="logic"><span>⊕</span><strong>Logic Gates</strong><small>AND · OR · XOR · NAND</small></button>
+    <button class="lab-card" data-lab="rc"><span>∿</span><strong>RC Signal</strong><small>watch a capacitor charge</small></button>
+  </div>
+  <div id="lab-console" class="lab-console"><span class="cmd">$ lab --ready</span><span class="muted">Choose an experiment above.</span></div>
+</div>
+
+<div class="panel" id="contact" hidden>
           <h2>Contact</h2>
           <p class="muted">Email</p>
-          <p><a class="link" href="mailto:rithwikvkumar@example.com">rithprakum@gmail.com</a></p>
+          <p><a class="link" href="mailto:rithprakum@gmail.com">rithprakum@gmail.com</a></p>
           <p class="muted">Socials</p>
           <p><a class="link" href="https://github.com/ritikreal" target="_blank">GitHub</a> ·
              <a class="link" href="https://www.linkedin.com/in/ritikreal" target="_blank">LinkedIn</a></p>
