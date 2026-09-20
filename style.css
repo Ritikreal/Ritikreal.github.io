@@ -609,3 +609,43 @@ body.notes-page{
     width:100%;
   }
 }
+
+/* =========================
+   Phone reading order fix
+   Hero first, terminal second — desktop unchanged
+========================= */
+@media (max-width:900px){
+  .app{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .content{
+    display:contents;
+  }
+
+  .hero{
+    order:1;
+    width:100%;
+  }
+
+  .sidebar{
+    order:2;
+    width:100%;
+  }
+
+  .workspace-strip{
+    order:3;
+    width:100%;
+  }
+
+  .panel-area{
+    order:4;
+    width:100%;
+  }
+
+  .footer{
+    order:5;
+    width:100%;
+  }
+}
