@@ -751,3 +751,44 @@ body.notes-page{
 .joke-card{display:grid;gap:6px}
 .joke-text{font:12px var(--mono);color:var(--text);line-height:1.6}
 @media(max-width:520px){.joke-card{padding:14px}.joke-text{font-size:11px}}
+
+
+/* Portfolio utility additions — native to the existing AMOLED interface */
+.live-status,.activity-card,.now-card,.milestones-card,.shortcuts-card{display:grid;gap:12px}
+.live-status-head,.activity-head,.now-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.live-status-head strong,.now-head h3,.activity-head h3{display:block;margin:4px 0 0;font:600 13px var(--mono)}
+.live-pill{display:flex;align-items:center;gap:7px;font:10px var(--mono);color:var(--accent);border:1px solid rgba(0,255,159,.12);border-radius:999px;padding:6px 9px}
+.live-pill .status-dot{width:6px;height:6px}
+.live-status-grid,.now-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.live-status-grid>div,.now-grid>div{padding:10px;border:1px solid rgba(255,255,255,.035);border-radius:9px;background:rgba(255,255,255,.006)}
+.live-status-grid strong,.now-grid strong{display:block;margin-top:4px;font:11px var(--mono);line-height:1.5}
+.activity-head h3,.now-head h3{font-size:15px}
+.activity-list{display:grid;gap:7px}
+.activity-item{display:grid;grid-template-columns:7px minmax(0,1fr) auto;align-items:center;gap:9px;padding:9px 10px;border:1px solid rgba(255,255,255,.035);border-radius:9px;background:rgba(255,255,255,.006)}
+.activity-item strong{font:11px var(--mono);color:var(--text)}
+.activity-item small{font-size:9px;color:var(--muted)}
+.activity-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px rgba(0,255,159,.35)}
+.now-semester{font-size:10px;color:var(--accent)}
+.milestone-list{display:grid;gap:7px}
+.milestone-list>div{display:grid;grid-template-columns:105px minmax(130px,.8fr) minmax(150px,1fr);gap:10px;align-items:center;padding:9px 10px;border:1px solid rgba(255,255,255,.035);border-radius:9px}
+.milestone-list time{font:9px var(--mono);color:var(--muted)}
+.milestone-list strong{font:11px var(--mono)}
+.milestone-list span{font-size:10px;color:var(--muted)}
+.shortcut-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.shortcut-grid>div{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:9px 10px;border:1px solid rgba(255,255,255,.035);border-radius:9px}
+.shortcut-grid span{font-size:10px;color:var(--muted)}
+kbd{font:10px var(--mono);color:var(--text);padding:3px 5px;border:1px solid rgba(255,255,255,.08);border-radius:5px;background:#020604}
+@media(max-width:700px){
+  .live-status-grid,.now-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .milestone-list>div{grid-template-columns:1fr;gap:3px}
+  .shortcut-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+  .live-status-head,.activity-head,.now-head{align-items:flex-start}
+  .live-status-grid,.now-grid{gap:6px}
+  .live-status-grid>div,.now-grid>div{padding:8px}
+  .live-status-grid strong,.now-grid strong{font-size:10px;overflow-wrap:anywhere}
+  .activity-item{grid-template-columns:6px minmax(0,1fr);font-size:10px}
+  .activity-item small{grid-column:2}
+  .shortcut-grid{gap:6px}
+}
