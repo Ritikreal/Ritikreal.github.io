@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Rithwik | Portfolio</title>
   <meta name="description" content="AMOLED terminal inspired portfolio with a terminal and panel based interface." />
-  <link rel="stylesheet" href="style.css?v=20260921-6" />
+  <link rel="stylesheet" href="style.css?v=20260921-7" />
 </head>
 <body>
   <noscript>
@@ -229,7 +229,72 @@
         </div>
       </section>
 
-            <section class="card joke-card" aria-live="polite">
+<section class="card live-status" aria-label="Live portfolio status">
+  <div class="live-status-head">
+    <div>
+      <span class="workspace-label">LIVE STATUS</span>
+      <strong>rithwik@portfolio</strong>
+    </div>
+    <span class="live-pill"><span class="status-dot"></span> ONLINE</span>
+  </div>
+  <div class="live-status-grid">
+    <div><span class="workspace-label">PORTFOLIO</span><strong>ONLINE</strong></div>
+    <div><span class="workspace-label">GITHUB</span><strong id="githubStatus">CHECKING...</strong></div>
+    <div><span class="workspace-label">LOCAL TIME</span><strong id="localTime">--:--:--</strong></div>
+    <div><span class="workspace-label">UPDATED</span><strong>21 SEP 2026</strong></div>
+  </div>
+</section>
+
+<section class="card activity-card">
+  <div class="activity-head">
+    <div>
+      <span class="workspace-label">RECENT ACTIVITY</span>
+      <h3>GitHub</h3>
+    </div>
+    <a class="link" href="https://github.com/Ritikreal" target="_blank" rel="noreferrer">Profile ↗</a>
+  </div>
+  <div id="githubActivity" class="activity-list">
+    <div class="activity-item"><span class="activity-dot"></span><span class="muted">Loading recent public activity...</span></div>
+  </div>
+</section>
+
+<section class="card now-card">
+  <div class="now-head">
+    <div>
+      <span class="workspace-label">NOW</span>
+      <h3>Current focus</h3>
+    </div>
+    <span class="mono now-semester">YEAR 2 · SEM 3</span>
+  </div>
+  <div class="now-grid">
+    <div><span class="workspace-label">BUILDING</span><strong>HomeCore V2 · Vivian · GYMPRO</strong></div>
+    <div><span class="workspace-label">LEARNING</span><strong>Rust · STM32 · TypeScript</strong></div>
+    <div><span class="workspace-label">FOCUS</span><strong>Embedded · IoT · Linux · Software</strong></div>
+  </div>
+</section>
+
+<section class="card milestones-card">
+  <div class="workspace-label">MILESTONES</div>
+  <div class="milestone-list">
+    <div><time>2025</time><strong>Joined DSATM</strong><span>Started the ECE journey.</span></div>
+    <div><time>JAN 2026</time><strong>Soil Health Sensor Network</strong><span>Completed the embedded sensor network build.</span></div>
+    <div><time>APR 2026</time><strong>HomeCore V2</strong><span>Started the next version of the personal home system.</span></div>
+    <div><time>AUG → SEP 2026</time><strong>MediKiosk+ · SIH 2026</strong><span>Built and prepared the healthcare kiosk project.</span></div>
+    <div><time>2026</time><strong>Under 25 Club · Makerspace Club</strong><span>Joined two university communities at DSATM.</span></div>
+  </div>
+</section>
+
+<section class="card shortcuts-card">
+  <div class="workspace-label">KEYBOARD</div>
+  <div class="shortcut-grid">
+    <div><kbd>↑</kbd><kbd>↓</kbd><span>Command history</span></div>
+    <div><kbd>Tab</kbd><span>Autocomplete</span></div>
+    <div><kbd>Ctrl</kbd><kbd>K</kbd><span>Focus terminal</span></div>
+    <div><kbd>Enter</kbd><span>Run command</span></div>
+  </div>
+</section>
+
+<section class="card joke-card" aria-live="polite">
         <div class="small muted">Random thought</div>
         <div id="randomJoke" class="joke-text">Loading questionable wisdom...</div>
       </section>
@@ -248,7 +313,7 @@
     </main>
   </div>
 
-  <script src="script.js?v=20260921-6"></script>
+  <script src="script.js?v=20260921-7"></script>
 </body>
   
 </html>
