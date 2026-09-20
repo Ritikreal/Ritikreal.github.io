@@ -10,11 +10,22 @@ window.addEventListener("DOMContentLoaded", () => {
   function hideAll(){panels.forEach(p=>p.hidden=true);hero?.classList.remove("active");}
   function showPanel(id){
     hideAll();
-    if(!id||id==="hero"){hero?.classList.add("active");return;}
+    if(!id||id==="hero"){
+      hero?.classList.add("active");
+      if(hero && window.matchMedia("(prefers-reduced-motion: no-preference)").matches){
+        hero.classList.remove("active-enter");
+        requestAnimationFrame(()=>hero.classList.add("active-enter"));
+      }
+      return;
+    }
     const panel=document.getElementById(id);
     panel?.removeAttribute("hidden");
+    if(panel && window.matchMedia("(prefers-reduced-motion: no-preference)").matches){
+      panel.classList.remove("active-enter");
+      requestAnimationFrame(()=>panel.classList.add("active-enter"));
+    }
     if(panel&&window.matchMedia("(max-width:900px)").matches){
-      requestAnimationFrame(()=>panel.scrollIntoView({behavior:"smooth",block:"start"}));
+      requestAnimationFrame(()=>panel.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"}));
     }
   }
   function renderLab(kind){
