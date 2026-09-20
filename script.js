@@ -1,8 +1,8 @@
 window.addEventListener("DOMContentLoaded", () => {
   const outputEl=document.getElementById("output"), cmdInput=document.getElementById("cmdInput"), promptForm=document.getElementById("promptForm");
   const panels=[...document.querySelectorAll(".panel")], hero=document.getElementById("panel-hero");
-  const panelMap={about:"about",projects:"projects",resume:"resume",notes:"notes",tools:"tools",lab:"lab",contact:"contact",hero:null};
-  const commands=["help","about","projects","project","resume","notes","note","tools","lab","contact","now","stack","timeline","hardware","neofetch","clear","open"];
+  const panelMap={about:"about",projects:"projects",resume:"resume",notes:"notes",tools:"tools",lab:"lab",contact:"contact",setup:"setup",buildlog:"buildlog",learning:"learning",personal:"personal",hero:null};
+  const commands=["help","about","projects","project","resume","notes","note","tools","lab","contact","setup","buildlog","learning","personal","now","stack","timeline","hardware","neofetch","clear","open"];
   const history=[]; let historyIndex=0;
   function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
   function appendLine(t="",cls=""){const p=document.createElement("p");p.className=cls;p.textContent=t;outputEl.appendChild(p);outputEl.scrollTop=outputEl.scrollHeight;}
@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
   document.querySelectorAll(".lab-card").forEach(x=>x.onclick=()=>renderLab(x.dataset.lab));
   document.querySelectorAll("[data-cmd]").forEach(x=>x.addEventListener("click",()=>execute(x.dataset.cmd)));
-  const responses={help:"Available commands:\n  help · about · projects · resume · notes · tools · lab · contact\n  now · stack · timeline · hardware · neofetch · clear\n  open <page> · Tab autocomplete · ↑↓ command history · Ctrl+K focus"};
+  const responses={help:"Available commands:\n  help · about · projects · resume · notes · tools · lab · contact\n  setup · buildlog · learning · personal\n  now · stack · timeline · hardware · neofetch · clear\n  open <page> · Tab autocomplete · ↑↓ command history · Ctrl+K focus"};
   async function execute(raw){
     raw=(raw||"").trim();if(!raw)return;
     const echo=document.createElement("p");echo.innerHTML='<span class="cmd inline">➜</span> <span class="mono">'+escapeHtml(raw)+"</span>";outputEl.appendChild(echo);
@@ -35,11 +35,11 @@ window.addEventListener("DOMContentLoaded", () => {
     if(cmd==="clear"){outputEl.innerHTML="";return;}
     if(cmd==="open"){if(arg==="notes"||arg==="note"){window.location.href="notes.html";return;}if(panelMap[arg]!==undefined){showPanel(arg);await typeLine("Opening "+arg+" panel...");}else appendLine("Try: open projects · open lab · open contact","muted");return;}
     if(cmd==="lab"){showPanel("lab");await typeLine("Opening ECE Lab...");return;}
-    if(cmd==="now"){showPanel("hero");await typeLine("Currently building: GYMPRO · Neko.Buddy · AyurLife");await typeLine("University: Under 25 Club · Makerspace Club");return;}
+    if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V2 · Vivian · GYMPRO");await typeLine("University: Under 25 Club · Makerspace Club");return;}
     if(cmd==="stack"){showPanel("tools");await typeLine("ECE stack: ESP32 · STM32 · C/C++ · Rust · TypeScript · WebAssembly · Linux");return;}
     if(cmd==="timeline"){showPanel("projects");await typeLine("Embedded systems → IoT → Linux → software → experimental engineering");return;}
     if(cmd==="hardware"){showPanel("projects");await typeLine("Hardware desk: ESP32 · STM32 · Raspberry Pi · sensors · LoRaWAN");return;}
-    if(cmd==="neofetch"){await typeLine("rithwik@portfolio","8","cmd");["OS        Arch Linux","Focus     ECE × Embedded × Software","Shell     fish","Projects  GYMPRO · Neko.Buddy · AyurLife"].forEach(x=>appendLine(x,"muted"));return;}
+    if(cmd==="neofetch"){await typeLine("rithwik@portfolio","8","cmd");["OS        Arch Linux","Focus     ECE × Embedded × Software","Shell     fish","Projects  GYMPRO · Neko.Buddy · Vivian · HomeCore V2 · MediKiosk+"].forEach(x=>appendLine(x,"muted"));return;}
     if(responses[cmd]){await typeLine(responses[cmd],6,"muted");return;}
     if(cmd==="notes"){window.location.href="notes.html";return;}if(panelMap[cmd]!==undefined){showPanel(cmd);await typeLine("Opened "+cmd+" panel.",8,"muted");return;}
     appendLine("Command not found: "+cmd,"muted");
