@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const parts=raw.split(/\s+/);let cmd=parts[0].toLowerCase(),arg=parts.slice(1).join(" ").toLowerCase();
     const aliases={project:"projects",note:"notes"};cmd=aliases[cmd]||cmd;
     if(cmd==="clear"){outputEl.innerHTML="";return;}
-    if(cmd==="open"){if(panelMap[arg]!==undefined){showPanel(arg);await typeLine("Opening "+arg+" panel...");}else appendLine("Try: open projects · open lab · open contact","muted");return;}
+    if(cmd==="open"){if(arg==="notes"||arg==="note"){window.location.href="notes.html";return;}if(panelMap[arg]!==undefined){showPanel(arg);await typeLine("Opening "+arg+" panel...");}else appendLine("Try: open projects · open lab · open contact","muted");return;}
     if(cmd==="lab"){showPanel("lab");await typeLine("Opening ECE Lab...");return;}
     if(cmd==="now"){showPanel("hero");await typeLine("Currently building: GYMPRO · Neko.Buddy · AyurLife");await typeLine("University: Under 25 Club · Makerspace Club");return;}
     if(cmd==="stack"){showPanel("tools");await typeLine("ECE stack: ESP32 · STM32 · C/C++ · Rust · TypeScript · WebAssembly · Linux");return;}
@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if(cmd==="hardware"){showPanel("projects");await typeLine("Hardware desk: ESP32 · STM32 · Raspberry Pi · sensors · LoRaWAN");return;}
     if(cmd==="neofetch"){await typeLine("rithwik@portfolio","8","cmd");["OS        Arch Linux","Focus     ECE × Embedded × Software","Shell     fish","Projects  GYMPRO · Neko.Buddy · AyurLife"].forEach(x=>appendLine(x,"muted"));return;}
     if(responses[cmd]){await typeLine(responses[cmd],6,"muted");return;}
-    if(panelMap[cmd]!==undefined){showPanel(cmd);await typeLine("Opened "+cmd+" panel.",8,"muted");return;}
+    if(cmd==="notes"){window.location.href="notes.html";return;}if(panelMap[cmd]!==undefined){showPanel(cmd);await typeLine("Opened "+cmd+" panel.",8,"muted");return;}
     appendLine("Command not found: "+cmd,"muted");
   }
   promptForm.addEventListener("submit",e=>{e.preventDefault();if(cmdInput.value.trim())history.push(cmdInput.value.trim());historyIndex=history.length;execute(cmdInput.value);cmdInput.value="";});
