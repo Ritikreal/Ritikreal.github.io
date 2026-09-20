@@ -747,3 +747,7 @@ body.notes-page{
     transition-duration:.001ms !important;
   }
 }
+
+.joke-card{display:grid;gap:6px}
+.joke-text{font:12px var(--mono);color:var(--text);line-height:1.6}
+@media(max-width:520px){.joke-card{padding:14px}.joke-text{font-size:11px}}
