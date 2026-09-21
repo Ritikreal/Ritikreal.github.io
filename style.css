@@ -1042,7 +1042,7 @@ body.notes-page{animation:notesPageEnter .55s cubic-bezier(.22,1,.36,1) both}
 
 
 /* Loader failsafe: the portfolio must never remain blocked if the motion script fails. */
-.zero-loader{animation:zeroLoaderFailsafe 3.5s ease forwards !important;}
+.zero-loader{animation:zeroLoaderFailsafe 6.2s ease forwards !important;}
 .zero-loader.is-done{animation:none;}
 @keyframes zeroLoaderFailsafe{
   0%,78%{opacity:1;visibility:visible;pointer-events:auto}
@@ -1050,10 +1050,93 @@ body.notes-page{animation:notesPageEnter .55s cubic-bezier(.22,1,.36,1) both}
 }
 /* ZERO-INSPIRED MOTION ONLY — existing geometry/colors remain untouched */
 .motion-ready .card,.motion-ready .workspace-block,.motion-ready .project,.motion-ready .lab-card,.motion-ready .note,.motion-ready .tech,.motion-ready .chip{will-change:transform,opacity}
-.motion-reveal{opacity:0;transform:translate3d(0,42px,0) scale(.985);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .95s cubic-bezier(.16,1,.3,1)}
+.motion-reveal{opacity:0;transform:translate3d(0,26px,0) scale(.99);transition:opacity .52s cubic-bezier(.16,1,.3,1),transform .58s cubic-bezier(.16,1,.3,1)}
 .motion-reveal.motion-visible{opacity:1;transform:none}
-.motion-reveal[data-motion-delay="1"]{transition-delay:.08s}.motion-reveal[data-motion-delay="2"]{transition-delay:.16s}.motion-reveal[data-motion-delay="3"]{transition-delay:.24s}
-.motion-sweep{position:relative;overflow:hidden}.motion-sweep:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,#000 45%,transparent 100%);transform:translateX(-110%);pointer-events:none}.motion-sweep.motion-visible:after{animation:zeroSweep 1.2s cubic-bezier(.76,0,.24,1) forwards}
-.zero-parallax{transition:transform .18s cubic-bezier(.16,1,.3,1)}
+.motion-reveal[data-motion-delay="1"]{transition-delay:.05s}.motion-reveal[data-motion-delay="2"]{transition-delay:.10s}.motion-reveal[data-motion-delay="3"]{transition-delay:.15s}
+.motion-sweep{position:relative;overflow:hidden}.motion-sweep:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,#000 45%,transparent 100%);transform:translateX(-110%);pointer-events:none}.motion-sweep.motion-visible:after{animation:zeroSweep .82s cubic-bezier(.76,0,.24,1) forwards}
+.zero-parallax{transition:transform .22s cubic-bezier(.16,1,.3,1);will-change:transform}
 @keyframes zeroSweep{to{transform:translateX(110%)}}
 @media(prefers-reduced-motion:reduce){.zero-loader-word,.motion-sweep:after{animation:none!important}.motion-reveal{opacity:1;transform:none;transition:none!important}.zero-parallax{transform:none!important}}
+
+
+/* ZERO motion refinement — faster reveals, richer movement, same UI */
+@media (prefers-reduced-motion:no-preference){
+  .zero-loader:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 3px,
+      rgba(255,255,255,.012) 4px
+    );
+    opacity:.65;
+    pointer-events:none;
+    animation:zeroScan 4s linear infinite;
+  }
+
+  .zero-loader-count,
+  .zero-loader-word,
+  .zero-loader-top,
+  .zero-loader-bottom,
+  .zero-loader-bar{
+    will-change:transform,opacity;
+  }
+
+  .zero-loader-count{animation:zeroCountIn .7s cubic-bezier(.16,1,.3,1) both}
+  .zero-loader-bottom{animation:zeroMetaIn .9s .18s cubic-bezier(.16,1,.3,1) both}
+  .zero-loader-top{animation:zeroMetaIn .9s .08s cubic-bezier(.16,1,.3,1) both}
+  .zero-loader-bar{animation:zeroBarGlow 1.8s ease-in-out infinite}
+
+  .hero.motion-visible{
+    animation:zeroHeroIn .7s cubic-bezier(.16,1,.3,1) both;
+  }
+
+  .workspace-block.motion-visible,
+  .project.motion-visible,
+  .lab-card.motion-visible,
+  .note.motion-visible{
+    animation:zeroCardIn .58s cubic-bezier(.16,1,.3,1) both;
+  }
+
+  .hero .avatar{
+    transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s ease;
+  }
+  .hero:hover .avatar{
+    transform:translate3d(0,-3px,0) rotate(-1deg);
+  }
+
+  .project:hover,.lab-card:hover,.workspace-block:hover{
+    transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s ease,box-shadow .35s ease;
+  }
+
+  @keyframes zeroScan{
+    from{transform:translateY(-8%)}
+    to{transform:translateY(8%)}
+  }
+  @keyframes zeroCountIn{
+    from{opacity:0;transform:translate3d(0,12px,0)}
+    to{opacity:1;transform:none}
+  }
+  @keyframes zeroMetaIn{
+    from{opacity:0;transform:translate3d(0,8px,0)}
+    to{opacity:1;transform:none}
+  }
+  @keyframes zeroBarGlow{
+    0%,100%{opacity:.72}
+    50%{opacity:1}
+  }
+  @keyframes zeroHeroIn{
+    from{opacity:0;transform:translate3d(0,18px,0) scale(.995)}
+    to{opacity:1;transform:none}
+  }
+  @keyframes zeroCardIn{
+    from{opacity:0;transform:translate3d(0,12px,0) scale(.995)}
+    to{opacity:1;transform:none}
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .zero-loader:before{display:none}
+}
