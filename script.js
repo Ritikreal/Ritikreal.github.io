@@ -588,3 +588,74 @@ if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V
   document.getElementById("openNotesGUI")?.addEventListener("click",()=>window.open("notes.html","_blank"));
   (async()=>{await typeLine("rithwik@portfolio: welcome",10,"muted");await typeLine("Type help to list commands.",8,"muted");})();cmdInput.focus();
 });
+
+/* =========================================================
+   ZERO-STYLE MOTION + LOADER
+   Strictly additive: no existing portfolio UI is rewritten.
+========================================================= */
+(function initZeroMotion(){
+  const ready=()=>document.body.classList.add("motion-ready");
+
+  function runLoader(){
+    const loader=document.getElementById("zero-loader");
+    const count=document.getElementById("zero-loader-count");
+    const bar=document.getElementById("zero-loader-bar");
+    const status=document.getElementById("zero-loader-status");
+    if(!loader||!count||!bar)return;
+    let value=0;
+    const labels=[[0,"INITIALIZING"],[28,"LOADING ASSETS"],[55,"BUILDING INTERFACE"],[78,"STARTING EXPERIENCE"],[94,"ALMOST THERE"]];
+    const tick=()=>{
+      value=Math.min(100,value+(value<55?Math.random()*5+2:Math.random()*2.8+0.8));
+      const n=Math.floor(value);
+      count.textContent=String(n).padStart(2,"0");
+      bar.style.width=n+"%";
+      const current=labels.reduce((a,x)=>value>=x[0]?x:a,labels[0]);
+      status.textContent=current[1];
+      if(value<100){requestAnimationFrame(tick);return}
+      count.textContent="100";status.textContent="READY";bar.style.width="100%";
+      setTimeout(()=>{loader.classList.add("is-done");setTimeout(()=>loader.remove(),1000)},420);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  function installMotion(){
+    ready();
+    const targets=document.querySelectorAll(
+      ".hero,.workspace-strip,.workspace-block,.panel-area,.project,.lab-card,.note,.setupGrid>div,.buildlog .log-entry,.tech,.footer,.footer-chips"
+    );
+    targets.forEach((el,i)=>{
+      el.classList.add("motion-reveal");
+      if(i%4===1)el.dataset.motionDelay="1";
+      if(i%4===2)el.dataset.motionDelay="2";
+      if(i%4===3)el.dataset.motionDelay="3";
+    });
+    document.querySelectorAll(".hero,.workspace-block,.project,.lab-card").forEach(el=>el.classList.add("motion-sweep"));
+
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("motion-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:.08,rootMargin:"0px 0px -8% 0px"});
+    targets.forEach(el=>observer.observe(el));
+
+    const hero=document.querySelector(".hero");
+    if(hero&&!matchMedia("(prefers-reduced-motion: reduce)").matches){
+      hero.classList.add("zero-parallax");
+      let raf=0;
+      window.addEventListener("scroll",()=>{
+        if(raf)return;
+        raf=requestAnimationFrame(()=>{
+          const y=Math.min(window.scrollY,500);
+          hero.style.transform="translate3d(0,"+(y*.035)+"px,0)";
+          raf=0;
+        });
+      },{passive:true});
+    }
+  }
+
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>{runLoader();installMotion()},{once:true});
+  else{runLoader();installMotion();}
+})();
