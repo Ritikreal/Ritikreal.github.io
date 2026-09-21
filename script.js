@@ -602,18 +602,20 @@ if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V
     const bar=document.getElementById("zero-loader-bar");
     const status=document.getElementById("zero-loader-status");
     if(!loader||!count||!bar)return;
-    let value=0;
-    const labels=[[0,"INITIALIZING"],[28,"LOADING ASSETS"],[55,"BUILDING INTERFACE"],[78,"STARTING EXPERIENCE"],[94,"ALMOST THERE"]];
-    const tick=()=>{
-      value=Math.min(100,value+(value<55?Math.random()*5+2:Math.random()*2.8+0.8));
-      const n=Math.floor(value);
+    const duration=5600;
+    const started=performance.now();
+    const labels=[[0,"INITIALIZING"],[22,"LOADING ASSETS"],[48,"BUILDING INTERFACE"],[72,"STARTING EXPERIENCE"],[91,"ALMOST THERE"]];
+    const tick=(now)=>{
+      const progress=Math.min(1,(now-started)/duration);
+      const eased=progress<.5?2*progress*progress:1-Math.pow(-2*progress+2,2)/2;
+      const n=Math.min(100,Math.floor(eased*100));
       count.textContent=String(n).padStart(2,"0");
       bar.style.width=n+"%";
-      const current=labels.reduce((a,x)=>value>=x[0]?x:a,labels[0]);
+      const current=labels.reduce((a,x)=>eased*100>=x[0]?x:a,labels[0]);
       status.textContent=current[1];
-      if(value<100){requestAnimationFrame(tick);return}
+      if(progress<1){requestAnimationFrame(tick);return}
       count.textContent="100";status.textContent="READY";bar.style.width="100%";
-      setTimeout(()=>{loader.classList.add("is-done");setTimeout(()=>loader.remove(),1000)},420);
+      setTimeout(()=>{loader.classList.add("is-done");setTimeout(()=>loader.remove(),900)},460);
     };
     requestAnimationFrame(tick);
   }
@@ -621,7 +623,7 @@ if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V
   function installMotion(){
     ready();
     const targets=document.querySelectorAll(
-      ".hero,.workspace-strip,.workspace-block,.panel-area,.project,.lab-card,.note,.setupGrid>div,.buildlog .log-entry,.tech,.footer,.footer-chips"
+      ".hero,.workspace-strip,.workspace-block,.panel-area,.project,.lab-card,.note,.setupGrid>div,.buildlog .log-entry,.tech,.footer,.footer-chips,.live-status,.activity-card,.now-card,.milestones-card,.shortcuts-card,.fact-card,.joke-card"
     );
     targets.forEach((el,i)=>{
       el.classList.add("motion-reveal");
@@ -629,7 +631,7 @@ if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V
       if(i%4===2)el.dataset.motionDelay="2";
       if(i%4===3)el.dataset.motionDelay="3";
     });
-    document.querySelectorAll(".hero,.workspace-block,.project,.lab-card").forEach(el=>el.classList.add("motion-sweep"));
+    document.querySelectorAll(".hero,.workspace-block,.project,.lab-card,.activity-card,.now-card,.milestones-card").forEach(el=>el.classList.add("motion-sweep"));
 
     const observer=new IntersectionObserver(entries=>{
       entries.forEach(entry=>{
