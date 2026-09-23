@@ -536,7 +536,13 @@ window.addEventListener("DOMContentLoaded", () => {
   }
   document.querySelectorAll(".lab-card").forEach(x=>x.onclick=()=>renderLab(x.dataset.lab));
   document.querySelectorAll("[data-cmd]").forEach(x=>x.addEventListener("click",()=>execute(x.dataset.cmd)));
-  const responses={help:"Available commands:\n  help · about · projects · resume · notes · tools · lab · contact\n  setup · buildlog · learning · personal\n  now · stack · timeline · hardware · neofetch\n  whoami · uptime · coffee · fortune · matrix · linux · minecraft · sudo · ls\n  shortcuts · milestones · clear · open <page>\n  Tab autocomplete · ↑↓ command history · Ctrl+K focus"};
+  const responses={help:"Available commands:
+  help · about · projects · resume · notes · tools · lab · contact
+  setup · buildlog · learning · personal
+  now · stack · timeline · hardware · neofetch
+  whoami · uptime · coffee · fortune · matrix · linux · minecraft · sudo · ls
+  shortcuts · milestones · clear · open <page>
+  Tab autocomplete · ↑↓ command history · Ctrl+K focus"};
   async function execute(raw){
     raw=(raw||"").trim();if(!raw)return;
     const echo=document.createElement("p");echo.innerHTML='<span class="cmd inline">➜</span> <span class="mono">'+escapeHtml(raw)+"</span>";outputEl.appendChild(echo);
