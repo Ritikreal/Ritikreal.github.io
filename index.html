@@ -4,7 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Rithwik | Portfolio</title>
-  <meta name="description" content="AMOLED terminal inspired portfolio with a terminal and panel based interface." />
+  <meta name="description" content="Rithwik V Kumar — Electronics and Communication Engineering student building embedded systems, IoT projects, Linux tools and software." />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:title" content="Rithwik V Kumar | Portfolio" />
+  <meta property="og:description" content="ECE × embedded systems × software. Projects, build logs, setup and experiments." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ritikreal.github.io/" />
+  <link rel="canonical" href="https://ritikreal.github.io/" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css?v=20260921-10" />
 </head>
@@ -65,7 +71,7 @@
         <button class="chip" data-cmd="buildlog">buildlog</button>
         <button class="chip" data-cmd="learning">learning</button>
         <button class="chip" data-cmd="personal">personal</button>
-        <button class="chip" data-cmd="contact">contact</button>
+        <button class="chip" data-cmd="contact">contact</button>\n        <button class="chip" data-cmd="skills">skills</button>\n        <button class="chip" data-cmd="experience">experience</button>\n        <button class="chip" data-cmd="education">education</button>\n        <button class="chip" data-cmd="now">now</button>\n        <button class="chip" data-cmd="github">github</button>
         <button class="chip" data-cmd="clear">clear</button>
       </div>
     </aside>
@@ -178,6 +184,49 @@
 </div></div>
 <div class="panel" id="learning" hidden><h2>Currently Learning</h2><p class="muted">Things I am actively trying to understand better through projects.</p><div class="techGrid"><div class="tech">Embedded Systems</div><div class="tech">STM32</div><div class="tech">Rust</div><div class="tech">TypeScript</div><div class="tech">Linux</div><div class="tech">Networking</div><div class="tech">IoT</div><div class="tech">System Design</div></div></div>
 <div class="panel" id="personal" hidden><h2>Outside Engineering</h2><p class="muted">The stuff that exists outside the project list.</p><div class="personalGrid"><div><strong>🚗 Cars</strong><span>Petrol head things and random car rabbit holes.</span></div><div><strong>🎮 Gaming</strong><span>Games when I am not building something.</span></div><div><strong>🐧 Linux</strong><span>Custom setups, experiments and breaking things until they work.</span></div><div><strong>📷 Photography</strong><span>Another excuse to carry a camera around.</span></div></div></div>
+<div class="panel" id="skills" hidden>
+  <h2>Skills</h2><p class="muted">Tools and technologies I actively use or learn through projects.</p>
+  <div class="skill-groups">
+    <div><span class="workspace-label">EMBEDDED</span><div class="techGrid"><div class="tech">ESP32</div><div class="tech">STM32</div><div class="tech">Arduino</div><div class="tech">Embedded C/C++</div><div class="tech">PlatformIO</div></div></div>
+    <div><span class="workspace-label">SOFTWARE</span><div class="techGrid"><div class="tech">Python</div><div class="tech">JavaScript</div><div class="tech">TypeScript</div><div class="tech">Rust</div><div class="tech">React</div><div class="tech">FastAPI</div></div></div>
+    <div><span class="workspace-label">SYSTEMS</span><div class="techGrid"><div class="tech">Linux</div><div class="tech">Arch Linux</div><div class="tech">Git</div><div class="tech">Networking</div><div class="tech">Raspberry Pi</div><div class="tech">Tailscale</div></div></div>
+  </div>
+</div>
+<div class="panel" id="experience" hidden>
+  <h2>Experience</h2><p class="muted">A project-first engineering timeline.</p>
+  <div class="buildlog">
+    <div class="log-entry"><time>2026 → now</time><strong>Independent Builder</strong><span>Embedded systems, Linux, self-hosted software and full-stack experiments.</span></div>
+    <div class="log-entry"><time>2026</time><strong>Smart India Hackathon · MediKiosk+</strong><span>Healthcare kiosk workflow, UI/UX and structured patient information.</span></div>
+    <div class="log-entry"><time>2025 → now</time><strong>Personal Software Projects</strong><span>GYMPRO, Vivian, HomeCore V2 and Neko.Buddy.</span></div>
+  </div>
+</div>
+<div class="panel" id="education" hidden>
+  <h2>Education</h2><p class="muted">Current academic track.</p>
+  <div class="setupGrid">
+    <div><span class="workspace-label">DEGREE</span><strong>B.E. Electronics & Communication Engineering</strong></div>
+    <div><span class="workspace-label">INSTITUTION</span><strong>Dayananda Sagar Academy of Technology and Management</strong></div>
+    <div><span class="workspace-label">UNIVERSITY</span><strong>Visvesvaraya Technological University</strong></div>
+    <div><span class="workspace-label">CURRENT</span><strong>2nd Year · 3rd Semester</strong></div>
+  </div>
+</div>
+<div class="panel" id="now" hidden>
+  <h2>Now</h2><p class="muted">What is currently taking up the engineering brain cycles.</p>
+  <div class="now-grid">
+    <div><span class="workspace-label">BUILDING</span><strong>HomeCore V2 · Vivian · GYMPRO</strong></div>
+    <div><span class="workspace-label">LEARNING</span><strong>Rust · STM32 · TypeScript · systems</strong></div>
+    <div><span class="workspace-label">EXPLORING</span><strong>Linux desktop tooling · networking · self-hosting</strong></div>
+    <div><span class="workspace-label">STATUS</span><strong>Ship → debug → improve</strong></div>
+  </div>
+</div>
+<div class="panel" id="milestones" hidden>
+  <h2>Milestones</h2><p class="muted">Selected checkpoints rather than a giant résumé.</p>
+  <div class="buildlog">
+    <div class="log-entry"><time>2026</time><strong>HomeCore V2</strong><span>Expanded the home system into a self-hosted dashboard and device platform.</span></div>
+    <div class="log-entry"><time>2026</time><strong>Soil Health Sensor Network</strong><span>Completed ESP32 + LoRaWAN sensor work and calibration.</span></div>
+    <div class="log-entry"><time>2026</time><strong>MediKiosk+</strong><span>Built the SIH 2026 healthcare kiosk concept and workflow.</span></div>
+    <div class="log-entry"><time>2025</time><strong>GYMPRO</strong><span>Started a personal workout tracking system for real daily use.</span></div>
+  </div>
+</div>
 <div class="panel" id="resume" hidden>
           <h2>Resume</h2>
           <p class="muted">Electronics Engineer — Embedded Systems & IoT</p>
@@ -331,7 +380,7 @@
     </main>
   </div>
 
-  <script src="script.js?v=20260924-1"></script>
+  <script src="script.js?v=20260924-2"></script>
 </body>
   
 </html>
