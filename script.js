@@ -1,4 +1,4 @@
-window.addEventListener("DOMContentLoaded", () => {
+function initPortfolio(){
   const outputEl=document.getElementById("output"), cmdInput=document.getElementById("cmdInput"), promptForm=document.getElementById("promptForm");
   const randomJokeEl=document.getElementById("randomJoke");
   const engineeringFactEl=document.getElementById("engineeringFact");
