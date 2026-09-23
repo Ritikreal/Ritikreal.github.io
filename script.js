@@ -500,9 +500,9 @@ function initPortfolio(){
   loadGitHubActivity();
 
   const panels=[...document.querySelectorAll(".panel")], hero=document.getElementById("panel-hero");
-  const panelMap={about:"about",projects:"projects",resume:"resume",notes:"notes",tools:"tools",lab:"lab",contact:"contact",setup:"setup",buildlog:"buildlog",learning:"learning",personal:"personal",hero:null};
-  const commands=["help","about","projects","project","resume","notes","note","tools","lab","contact","setup","buildlog","learning","personal","status","now","stack","timeline","hardware","neofetch","whoami","uptime","coffee","fortune","matrix","linux","minecraft","sudo","ls","shortcuts","milestones","clear","open"];
-  const history=[]; let historyIndex=0;
+  const panelMap={about:"about",projects:"projects",resume:"resume",notes:"notes",tools:"tools",lab:"lab",contact:"contact",setup:"setup",buildlog:"buildlog",learning:"learning",personal:"personal",skills:"skills",experience:"experience",education:"education",now:"now",milestones:"milestones",hero:null};
+  const commands=["help","about","projects","project","resume","notes","note","tools","lab","contact","setup","buildlog","learning","personal","skills","experience","education","status","now","stack","timeline","hardware","github","stats","neofetch","whoami","uptime","coffee","fortune","matrix","linux","minecraft","sudo","ls","shortcuts","milestones","date","time","echo","theme","ping","clear","open"];
+  const history=JSON.parse(sessionStorage.getItem("portfolioCommandHistory")||"[]").slice(-40); let historyIndex=history.length;
   function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
   function appendLine(t="",cls=""){const p=document.createElement("p");p.className=cls;p.textContent=t;outputEl.appendChild(p);outputEl.scrollTop=outputEl.scrollHeight;}
   async function typeLine(t,speed=8,cls=""){const p=document.createElement("p");p.className=cls;outputEl.appendChild(p);for(let i=0;i<=t.length;i++){p.textContent=t.slice(0,i);await new Promise(r=>setTimeout(r,speed));}outputEl.scrollTop=outputEl.scrollHeight;}
@@ -536,7 +536,7 @@ function initPortfolio(){
   }
   document.querySelectorAll(".lab-card").forEach(x=>x.onclick=()=>renderLab(x.dataset.lab));
   document.querySelectorAll("[data-cmd]").forEach(x=>x.addEventListener("click",()=>execute(x.dataset.cmd)));
-  const responses={help:"Available commands:\nhelp · about · projects · resume · notes · tools · lab · contact\nsetup · buildlog · learning · personal\nnow · stack · timeline · hardware · neofetch\nwhoami · uptime · coffee · fortune · matrix · linux · minecraft · sudo · ls\nshortcuts · milestones · clear · open <page>\nTab autocomplete · ↑↓ command history · Ctrl+K focus"};
+  const responses={help:"Available commands:\nabout · projects · project <name> · skills · experience · education\nresume · notes · tools · lab · setup · buildlog · learning · personal\nnow · status · github · stats · stack · timeline · hardware · milestones\nneofetch · whoami · uptime · coffee · fortune · matrix · linux · minecraft\nls · shortcuts · date · time · echo <text> · theme · ping · clear · open <page>\nTab autocomplete · ↑↓ history · Ctrl+K focus"};
   async function execute(raw){
     raw=(raw||"").trim();if(!raw)return;
     const echo=document.createElement("p");echo.innerHTML='<span class="cmd inline">➜</span> <span class="mono">'+escapeHtml(raw)+"</span>";outputEl.appendChild(echo);
@@ -545,7 +545,36 @@ function initPortfolio(){
     if(cmd==="clear"){outputEl.innerHTML="";return;}
     if(cmd==="open"){if(arg==="notes"||arg==="note"){sessionStorage.setItem("portfolioPageTransition","notes");document.body.classList.add("page-leaving");setTimeout(()=>{window.location.href="notes.html";},320);return;}if(panelMap[arg]!==undefined){showPanel(arg);await typeLine("Opening "+arg+" panel...");}else appendLine("Try: open projects · open lab · open contact","muted");return;}
     if(cmd==="lab"){showPanel("lab");await typeLine("Opening ECE Lab...");return;}
-    if(cmd==="status"){
+    if(cmd==="project"){
+  showPanel("projects");
+  const projects={
+    "homecore":"HomeCore V2 — Raspberry Pi home dashboard, telemetry, network visibility and self-hosted services.",
+    "vivian":"Vivian — ESP32 transformer health monitoring with temperature, current and voltage telemetry.",
+    "gympro":"GYMPRO — offline-first workout logging, history, progress, PRs and optional private Gist sync.",
+    "medikiosk":"MediKiosk+ — healthcare kiosk workflow and structured patient history for SIH 2026.",
+    "soil":"Soil Health Sensor Network — ESP32 sensor nodes, LoRaWAN, calibration and modular firmware.",
+    "neko":"Neko.Buddy — Linux desktop companion experiment using Rust/Tauri."
+  };
+  const key=Object.keys(projects).find(k=>arg.includes(k));
+  await typeLine(key?projects[key]:"Try: project homecore · project vivian · project gympro · project medikiosk · project soil · project neko","6","muted");return;
+}
+if(cmd==="skills"){showPanel("skills");await typeLine("Skills: embedded systems · C/C++ · Python · JS/TS · Rust · React · FastAPI · Linux");return;}
+if(cmd==="experience"){showPanel("experience");await typeLine("Experience is project-first: embedded + software builds, SIH 2026 and self-hosted systems.");return;}
+if(cmd==="education"){showPanel("education");await typeLine("B.E. Electronics & Communication Engineering · DSATM · VTU · 2nd year / 3rd semester");return;}
+if(cmd==="github"){document.getElementById("githubActivity")?.scrollIntoView({behavior:"smooth",block:"nearest"});await typeLine("GitHub activity panel ready. Fetching public activity...");return;}
+if(cmd==="stats"){
+  try{
+    const r=await fetch("https://api.github.com/users/Ritikreal",{headers:{Accept:"application/vnd.github+json"}});
+    if(!r.ok)throw new Error();
+    const u=await r.json();
+    await typeLine("GitHub","8","cmd");appendLine("Public repos  "+u.public_repos,"muted");appendLine("Followers     "+u.followers,"muted");appendLine("Following     "+u.following,"muted");
+  }catch{await typeLine("GitHub stats unavailable right now.","6","muted");}return;
+}
+if(cmd==="date"||cmd==="time"){await typeLine(new Intl.DateTimeFormat("en-IN",{dateStyle:cmd==="date"?"full":"medium",timeStyle:cmd==="time"?"medium":undefined,timeZone:"Asia/Kolkata"}).format(new Date()));return;}
+if(cmd==="echo"){await typeLine(parts.slice(1).join(" ")||"");return;}
+if(cmd==="theme"){await typeLine("Theme: AMOLED · terminal · minimal · no redesign required.");return;}
+if(cmd==="ping"){const t=performance.now();await typeLine("portfolio: pong · "+Math.round(performance.now()-t)+"ms");return;}
+if(cmd==="status"){
   showPanel("projects");
   await typeLine("BUILD STATUS","8","cmd");
   appendLine("HomeCore V2     ACTIVE BUILD · more to build","muted");
@@ -556,7 +585,7 @@ function initPortfolio(){
   appendLine("Neko.Buddy      ON HOLD · paused","muted");
   return;
 }
-if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V2 · Vivian · GYMPRO");await typeLine("University: Under 25 Club · Makerspace Club");return;}
+if(cmd==="now"){showPanel("now");await typeLine("Currently building: HomeCore V2 · Vivian · GYMPRO");await typeLine("University: Under 25 Club · Makerspace Club");return;}
     if(cmd==="stack"){showPanel("tools");await typeLine("ECE stack: ESP32 · STM32 · C/C++ · Rust · TypeScript · WebAssembly · Linux");return;}
     if(cmd==="timeline"){showPanel("projects");await typeLine("Embedded systems → IoT → Linux → software → experimental engineering");return;}
     if(cmd==="hardware"){showPanel("projects");await typeLine("Hardware desk: ESP32 · STM32 · Raspberry Pi · sensors · LoRaWAN");return;}
@@ -569,14 +598,14 @@ if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V
     if(cmd==="linux"){await typeLine("Linux mode: enabled. Arch + Hyprland + fish + Kitty.");return;}
     if(cmd==="minecraft"){await typeLine("Minecraft mode: enabled. Inventory still unorganized.");return;}
     if(cmd==="sudo"){await typeLine("Nice try. This terminal has no root privileges.");return;}
-    if(cmd==="ls"){await typeLine("about  projects  setup  buildlog  learning  personal  notes  lab  resume");return;}
+    if(cmd==="ls"){await typeLine("about  projects  skills  experience  education  now  setup  buildlog  learning  personal  notes  lab  resume");return;}
     if(cmd==="shortcuts"){await typeLine("↑↓ history · Tab autocomplete · Ctrl+K focus · Enter run");return;}
-    if(cmd==="milestones"){showPanel("buildlog");await typeLine("Milestones: DSATM · Soil Health Network · HomeCore V2 · MediKiosk+ · University Clubs");return;}
+    if(cmd==="milestones"){showPanel("milestones");await typeLine("Milestones panel opened.");return;}
     if(responses[cmd]){await typeLine(responses[cmd],6,"muted");return;}
     if(cmd==="notes"){window.location.href="notes.html";return;}if(panelMap[cmd]!==undefined){showPanel(cmd);await typeLine("Opened "+cmd+" panel.",8,"muted");return;}
     appendLine("Command not found: "+cmd,"muted");
   }
-  promptForm.addEventListener("submit",e=>{e.preventDefault();if(cmdInput.value.trim())history.push(cmdInput.value.trim());historyIndex=history.length;execute(cmdInput.value);cmdInput.value="";});
+  promptForm.addEventListener("submit",e=>{e.preventDefault();const value=cmdInput.value.trim();if(value){history.push(value);while(history.length>40)history.shift();sessionStorage.setItem("portfolioCommandHistory",JSON.stringify(history));}historyIndex=history.length;execute(value);cmdInput.value="";});
   document.getElementById("runBtn")?.addEventListener("click",e=>{e.preventDefault();promptForm.requestSubmit();});
   cmdInput.addEventListener("keydown",e=>{
     if(e.key==="Tab"){e.preventDefault();const v=cmdInput.value.toLowerCase().trim();const m=commands.find(c=>c.startsWith(v)&&c!==v);if(m)cmdInput.value=m+(m==="open"?" ":"");}
@@ -607,7 +636,7 @@ else initPortfolio();
     const bar=document.getElementById("zero-loader-bar");
     const status=document.getElementById("zero-loader-status");
     if(!loader||!count||!bar)return;
-    const duration=5600;
+    const duration=2600;
     const started=performance.now();
     const labels=[[0,"INITIALIZING"],[22,"LOADING ASSETS"],[48,"BUILDING INTERFACE"],[72,"STARTING EXPERIENCE"],[91,"ALMOST THERE"]];
     const tick=(now)=>{
