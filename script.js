@@ -541,7 +541,7 @@ function initPortfolio(){
     raw=(raw||"").trim();if(!raw)return;
     const echo=document.createElement("p");echo.innerHTML='<span class="cmd inline">➜</span> <span class="mono">'+escapeHtml(raw)+"</span>";outputEl.appendChild(echo);
     const parts=raw.split(/\s+/);let cmd=parts[0].toLowerCase(),arg=parts.slice(1).join(" ").toLowerCase();
-    const aliases={project:"projects",note:"notes"};cmd=aliases[cmd]||cmd;
+    const aliases={note:"notes"};cmd=aliases[cmd]||cmd;
     if(cmd==="clear"){outputEl.innerHTML="";return;}
     if(cmd==="open"){if(arg==="notes"||arg==="note"){sessionStorage.setItem("portfolioPageTransition","notes");document.body.classList.add("page-leaving");setTimeout(()=>{window.location.href="notes.html";},320);return;}if(panelMap[arg]!==undefined){showPanel(arg);await typeLine("Opening "+arg+" panel...");}else appendLine("Try: open projects · open lab · open contact","muted");return;}
     if(cmd==="lab"){showPanel("lab");await typeLine("Opening ECE Lab...");return;}
