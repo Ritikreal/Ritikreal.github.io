@@ -1140,3 +1140,4 @@ body.notes-page{animation:notesPageEnter .55s cubic-bezier(.22,1,.36,1) both}
 @media (prefers-reduced-motion:reduce){
   .zero-loader:before{display:none}
 }
+\n.portfolio-brand{border:0;background:transparent;color:inherit;padding:0;text-align:left;cursor:pointer}\n
