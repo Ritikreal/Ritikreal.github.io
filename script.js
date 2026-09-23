@@ -584,7 +584,7 @@ if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V
     if(e.key==="ArrowDown"){e.preventDefault();if(history.length){historyIndex=Math.min(history.length,historyIndex+1);cmdInput.value=history[historyIndex]||"";}}
   });
   document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();cmdInput.focus();cmdInput.select();}});
-  document.getElementById("downloadResume")?.addEventListener("click",()=>window.open("resume.pdf","_blank"));
+  document.getElementById("downloadResume")?.addEventListener("click",()=>window.open("resume.html","_blank"));
   document.getElementById("openNotesGUI")?.addEventListener("click",()=>window.open("notes.html","_blank"));
   (async()=>{await typeLine("rithwik@portfolio: welcome",10,"muted");await typeLine("Type help to list commands.",8,"muted");})();cmdInput.focus();
 });
