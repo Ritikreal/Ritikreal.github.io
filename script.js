@@ -593,8 +593,12 @@ if(cmd==="now"){showPanel("hero");await typeLine("Currently building: HomeCore V
   document.getElementById("portfolioBrand")?.addEventListener("click",()=>showPanel("hero"));
   document.getElementById("downloadResume")?.addEventListener("click",()=>window.open("resume.html","_blank"));
   document.getElementById("openNotesGUI")?.addEventListener("click",()=>window.open("notes.html","_blank"));
-  (async()=>{await typeLine("rithwik@portfolio: welcome",10,"muted");await typeLine("Type help to list commands.",8,"muted");})();cmdInput.focus();
-});
+  (async()=>{await typeLine("rithwik@portfolio: welcome",10,"muted");await typeLine("Type help to list commands.",8,"muted");})();
+  cmdInput.focus();
+}
+
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initPortfolio,{once:true});
+else initPortfolio();
 
 /* =========================================================
    ZERO-STYLE MOTION + LOADER
