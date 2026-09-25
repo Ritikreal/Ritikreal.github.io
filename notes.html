@@ -40,7 +40,42 @@
   </section>
 
   <main class="notes-container">
-  <article class="note" id="medikiosk-sih">
+        <article class="note" id="desk-buddy">
+        <div class="note-meta"><span>25 Sep 2026</span><span>EMBEDDED · DESK BUILD</span></div>
+        <h2>🖥️ Desk Buddy | Turning an ESP32-C6 Into a Tiny Desk Companion</h2>
+        <p class="muted">A small OLED, an ESP32-C6 and a surprisingly useful amount of firmware.</p>
+
+        <p>I wanted something that could sit on my desk and show the things I actually care about without needing another desktop app running in the background. That became <strong>Desk Buddy</strong> — a compact ESP32-C6 firmware project built around a 128×64 OLED.</p>
+
+        <h3>The idea</h3>
+        <p>The goal is deliberately simple: make the little display useful at a glance. The device connects to Wi-Fi and talks directly to the services it needs. There is no custom Windows companion application sitting between the device and the APIs.</p>
+
+        <div class="note-grid">
+          <div><strong>Hardware</strong><span>ESP32-C6 · Cupid GLYPH C6 · 128×64 OLED</span></div>
+          <div><strong>Display</strong><span>OLED only — the physical Glyph LEDs are not used</span></div>
+          <div><strong>Firmware</strong><span>Arduino / C++ with FreeRTOS tasks</span></div>
+          <div><strong>Network</strong><span>Wi-Fi with background service tasks</span></div>
+        </div>
+
+        <h3>Spotify</h3>
+        <p>Spotify is polled every second so playback information stays responsive. The firmware handles the current track, artist, album, progress and artwork, then converts the artwork for the small monochrome display. Playback progress is interpolated locally between API snapshots so the progress bar does not have to wait for every network response.</p>
+
+        <h3>Discord</h3>
+        <p>Discord uses the Gateway rather than repeatedly polling a REST endpoint. The firmware listens for presence and voice-state events and can show the user's online state, current game/activity, voice-channel state, mute state and deafen state. The display deliberately separates <em>Gateway connection</em> from <em>presence synchronization</em> so a connected socket is not mistaken for a fully synchronized Discord state.</p>
+
+        <h3>The UI on 128×64</h3>
+        <p>There is very little screen real estate, so the interface is built around dense information rather than decorative elements. The dashboard rotates through Spotify, Discord and device diagnostics. Spotify gets the most visual treatment because album artwork makes the tiny OLED feel much more like a real device, while Discord and diagnostics are kept compact and readable.</p>
+
+        <h3>Making boot independent</h3>
+        <p>One of the small but important firmware decisions was removing service readiness from the boot sequence. The device should not sit on a loading screen because Spotify or Discord is slow to connect. Desk Buddy boots, brings up Wi-Fi, and lets the service tasks connect in the background.</p>
+
+        <h3>What I learned</h3>
+        <p>The interesting part was not drawing text on an OLED. It was coordinating several asynchronous systems on a small microcontroller: Wi-Fi transitions, HTTPS requests, OAuth token refresh, WebSocket events, artwork decoding, display refresh and state synchronization. Keeping those responsibilities separated makes the firmware much easier to reason about.</p>
+
+        <p class="muted small">Desk Buddy is still an active build. The firmware, hardware setup and interface will continue to evolve as I use the device on my actual desk.</p>
+      </article>
+
+<article class="note" id="medikiosk-sih">
     <h2>🏥 MediKiosk+ | SIH 2026</h2>
     <p>MediKiosk+ is a healthcare kiosk project being developed for <strong>Smart India Hackathon (SIH) 2026</strong>, focused on practical hospital workflows, multilingual patient history capture and structured medical information with physician review.</p>
     <p>The project brings together the healthcare workflow work I'm building with the goal of making patient information capture and review more practical in a real world kiosk setting.</p>
